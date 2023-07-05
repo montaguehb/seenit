@@ -13,6 +13,13 @@ class User(db.Model, SerializerMixin):
     _password_digest = db.Column(db.String, nullable=False)
     created_at = db.Column(db.DateTime, server_default=db.func.now())
     
+    post = db.relationship("Post", back_populates="user")
+    user_community = db.relationship("UserCommunity", back_populates="user")
+    user_post = db.relationship("UserPost", back_populates="user")
+    
+    serialize_only = ("id", "username", "role")
+    serialize_rules = ("-post.user", "user_community.user", "user_community.user_post")
+    
     @hybrid_property
     def password_digest(self):
         return self._password_digest
