@@ -5,12 +5,14 @@ from flask_restful import Api
 from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
 from sqlalchemy import MetaData
+from flask_jwt_extended import JWTManager
 import os
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///app.db'
 
 app.secret_key = os.environ.get('SECRET_KEY', 'dev')
+app.config["JWT_SECRET_KEY"] = os.environ.get('JWT_SECRET_KEY', 'dev')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.json.compact = False
 
@@ -29,3 +31,4 @@ bcrypt = Bcrypt(app)
 api = Api(app)
 
 CORS(app)
+jwt = JWTManager(app)
