@@ -45,21 +45,45 @@ class UserCommunity(db.Model, SerializerMixin):
     community_id = db.Column(db.Integer, db.ForeignKey("community.id"))
     
     user = db.relationship("User", back_populates="user_community")
-    community = db.relationship("Community", back_populates="user_community")
+    community = db.relationship("Community")
 
-    serialize_rules = ("-user.user_community", "-community.user_community")
+    serialize_rules = ("-user.user_community")
 
 
 class Community(db.Model, SerializerMixin):
     __tablename__ = "community"
 
+    id = db.Column(db.Integer, primary_key=True)
+    subscribers = db.Column(db.Integer)
 
 class Comment(db.Model, SerializerMixin):
     __tablename__ = "comment"
 
+    id = db.Column(db.Integer, primary_key=True)
+    likes = db.Column(db.Integer, server_default=0)
+    dislikes = db.Column(db.Integer, server_default=0)
+    body = db.Column(db.VARCHAR, nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey("user.id"))
+    post_id = db.Column(db.Integer, db.ForeignKey("post.id"))
+    parent_comment_id = db.Column(db.Integer, db.ForeignKey("comment.id"))
+    created_at = db.Column(db.DateTime, server_default=db.func.now())
+    updated_at = db.Column(db.DateTime, updated_at=db.func.now())
+    
+    
 
 class Post(db.Model, SerializerMixin):
     __tablename__ = "user"
+    
+    id = db.Column(db.Integer, primary_key=True)
+    likes = db.Column(db.Integer, server_default=0)
+    dislikes = db.Column(db.Integer, server_default=0)
+    title = db.Column(db.VARCHAR, nullable=False)
+    body = db.Column(db.VARCHAR, nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey("user.id"))
+    community_id = db.Column(db.Integer, db.ForeignKey("community.id"))
+    parent_comment_id = db.Column(db.Integer, db.ForeignKey("comment.id"))
+    created_at = db.Column(db.DateTime, server_default=db.func.now())
+    updated_at = db.Column(db.DateTime, updated_at=db.func.now())
 
 
 class UserPost(db.Model, SerializerMixin):
