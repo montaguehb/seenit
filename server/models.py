@@ -15,6 +15,7 @@ class User(db.Model, SerializerMixin):
     created_at = db.Column(db.DateTime, server_default=db.func.now())
 
     post = db.relationship("Post", back_populates="user")
+    comment = db.relationship("Comment", back_populates="user")
     user_community = db.relationship("UserCommunity", back_populates="user")
     user_post = db.relationship("UserPost", back_populates="user")
 
@@ -60,31 +61,41 @@ class Comment(db.Model, SerializerMixin):
     __tablename__ = "comment"
 
     id = db.Column(db.Integer, primary_key=True)
-    likes = db.Column(db.Integer, server_default=0)
-    dislikes = db.Column(db.Integer, server_default=0)
+    likes = db.Column(db.Integer)
+    dislikes = db.Column(db.Integer)
     body = db.Column(db.VARCHAR, nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey("user.id"))
     post_id = db.Column(db.Integer, db.ForeignKey("post.id"))
     parent_comment_id = db.Column(db.Integer, db.ForeignKey("comment.id"))
     created_at = db.Column(db.DateTime, server_default=db.func.now())
-    updated_at = db.Column(db.DateTime, updated_at=db.func.now())
+    updated_at = db.Column(db.DateTime, onupdate=db.func.now())
     
+    user = db.relationship("User", back_populates="comment")
+    post = db.relationship("Post", back_populates="comment")
+    parent_comment = db.relationship("Comment")
+    
+    serialize_rules = ("-user.comment", "-post.comment")
     
 
 class Post(db.Model, SerializerMixin):
-    __tablename__ = "user"
+    __tablename__ = "post"
     
     id = db.Column(db.Integer, primary_key=True)
-    likes = db.Column(db.Integer, server_default=0)
-    dislikes = db.Column(db.Integer, server_default=0)
+    likes = db.Column(db.Integer)
+    dislikes = db.Column(db.Integer)
     title = db.Column(db.VARCHAR, nullable=False)
     body = db.Column(db.VARCHAR, nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey("user.id"))
     community_id = db.Column(db.Integer, db.ForeignKey("community.id"))
     parent_comment_id = db.Column(db.Integer, db.ForeignKey("comment.id"))
     created_at = db.Column(db.DateTime, server_default=db.func.now())
-    updated_at = db.Column(db.DateTime, updated_at=db.func.now())
+    updated_at = db.Column(db.DateTime, onupdate=db.func.now())
 
+    user = db.relationship("User", back_populates="post")
+    comment = db.relationship("Comment", back_populates="post")
+    parent_comment = db.relationship("Comment")
+    
+    serialize_rules = ("-comment.post", "-user.post")
 
 class UserPost(db.Model, SerializerMixin):
     __tablename__ = "user_post"
