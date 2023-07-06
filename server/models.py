@@ -20,7 +20,7 @@ class User(db.Model, SerializerMixin):
     user_post = db.relationship("UserPost", back_populates="user")
 
     serialize_only = ("id", "username", "role")
-    serialize_rules = ("-post.user", "user_community.user", "user_community.user_post")
+    serialize_rules = ("-post.user", "user_community.user", "-user_post.user")
 
     @hybrid_property
     def password_digest(self):
@@ -44,18 +44,20 @@ class UserCommunity(db.Model, SerializerMixin):
     role = db.Column(db.String)
     user_id = db.Column(db.Integer, db.ForeignKey("user.id"))
     community_id = db.Column(db.Integer, db.ForeignKey("community.id"))
-    
+
     user = db.relationship("User", back_populates="user_community")
     community = db.relationship("Community")
 
-    serialize_rules = ("-user.user_community")
+    serialize_rules = "-user.user_community"
 
 
 class Community(db.Model, SerializerMixin):
     __tablename__ = "community"
 
     id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.VARCHAR)
     subscribers = db.Column(db.Integer)
+
 
 class Comment(db.Model, SerializerMixin):
     __tablename__ = "comment"
@@ -69,17 +71,17 @@ class Comment(db.Model, SerializerMixin):
     parent_comment_id = db.Column(db.Integer, db.ForeignKey("comment.id"))
     created_at = db.Column(db.DateTime, server_default=db.func.now())
     updated_at = db.Column(db.DateTime, onupdate=db.func.now())
-    
+
     user = db.relationship("User", back_populates="comment")
     post = db.relationship("Post", back_populates="comment")
     parent_comment = db.relationship("Comment")
-    
+
     serialize_rules = ("-user.comment", "-post.comment")
-    
+
 
 class Post(db.Model, SerializerMixin):
     __tablename__ = "post"
-    
+
     id = db.Column(db.Integer, primary_key=True)
     likes = db.Column(db.Integer)
     dislikes = db.Column(db.Integer)
@@ -92,8 +94,9 @@ class Post(db.Model, SerializerMixin):
 
     user = db.relationship("User", back_populates="post")
     comment = db.relationship("Comment", back_populates="post")
-    
+
     serialize_rules = ("-comment.post", "-user.post")
+
 
 class UserPost(db.Model, SerializerMixin):
     __tablename__ = "user_post"
@@ -102,3 +105,5 @@ class UserPost(db.Model, SerializerMixin):
     user_id = db.Column(db.Integer, db.ForeignKey("user.id"))
     liked = db.Column(db.String)
     save = db.Column(db.Boolean)
+
+    user = db.relationship("User", back_populates="user_post")
