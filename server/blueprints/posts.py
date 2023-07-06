@@ -8,4 +8,4 @@ users_bp = Blueprint('users', __name__, url_prefix='/posts')
 class Posts(Resource):
     def get(self):
         posts = Post.query.all()
-        return make_response([user.to_dict() for user in posts], 200)
+        return make_response([post.to_dict() for post in posts], 200)
