@@ -15,6 +15,9 @@ class Comment(db.Model, SerializerMixin):
 
     user = db.relationship("User", back_populates="comment")
     post = db.relationship("Post", back_populates="comment")
-    parent_comment = db.relationship("Comment")
+    # parent_comment = db.relationship("Comment")
 
-    serialize_rules = ("-user.comment", "-post.comment")
+    serialize_rules = ("-user.comment", "-user.post", "-post.comment", "-post.user")
+
+from models.user import User
+from models.post import Post

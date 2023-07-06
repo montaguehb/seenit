@@ -7,4 +7,5 @@ users = Blueprint('users', __name__, url_prefix='/users')
 
 class Users(Resource):
     def get(self):
-        return make_response([user.to_dict() for user in Users.query.all()], 200)
+        users = User.query.all()
+        return make_response([user.to_dict() for user in users], 200)
