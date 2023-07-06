@@ -1,3 +1,6 @@
+from flask import make_response, request
+from flask_restful import Resource
+
 from config import app, db, api, jwt
 from models import User
 
