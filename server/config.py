@@ -13,6 +13,7 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///app.db'
 
 app.secret_key = os.environ.get('SECRET_KEY', 'dev')
 app.config["JWT_SECRET_KEY"] = os.environ.get('JWT_SECRET_KEY', 'dev')
+app.config["JWT_TOKEN_LOCATION"] = ["headers", "cookies"]
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.json.compact = False
 
@@ -28,7 +29,7 @@ render_as_batch=True
 
 bcrypt = Bcrypt(app)
 
-api = Api(app)
+api = Api(app, prefix="/api/v1")
 
 CORS(app)
 jwt = JWTManager(app)
