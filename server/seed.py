@@ -62,8 +62,8 @@ def post():
             dislikes=randint(0, 100),
             title=fake.sentence(nb_words=5),
             body=fake.paragraph(nb_sentences=5),
-            user_id=randint(0, users),
-            community_id=randint(0, communities)
+            user_id=randint(1, users),
+            community_id=randint(1, communities)
         )
         db.session.add(new_post)
     db.session.commit()
@@ -82,7 +82,7 @@ def comment():
             likes=randint(1, 1000),
             dislikes=randint(0, 100),
             body=fake.paragraph(nb_sentences=5),
-            user_id=randint(0, users),
+            user_id=randint(1, users),
             post_id=post.id,
             parent_comment_id=parent_comment
         )

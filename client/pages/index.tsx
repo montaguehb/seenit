@@ -2,6 +2,7 @@ import { GetServerSideProps } from "next";
 import useSWR from "swr";
 import styles from "../styles/page.module.css";
 import { useEffect } from "react";
+import PostCollection from "@/components/PostCollection";
 
 // type Community = {
 //   id: number,
@@ -20,7 +21,12 @@ import { useEffect } from "react";
 // }
 
 export default function Home() {
-  const { data } = useSWR('/api/v1/posts')
+  const { data, isLoading, error } = useSWR('/api/v1/posts')
 
-  return <main className={styles.main}></main>;
+  if (isLoading) {
+    return <p>Loading...</p>
+  }
+  return <main className={styles.main}>
+    <PostCollection posts={data} />
+  </main>;
 }

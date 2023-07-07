@@ -1,15 +1,28 @@
-const PostCollection = ({ posts }) => {
-    type Post = {
+import { AppProps } from "next/app";
+import PostCard from "./PostCard";
 
-    }
-    const mappedPosts = posts.map(post => {
-
-    })
-  return (
-    <div>
-       {mappedPosts} 
-    </div>
-  )
+type Community = {
+    id: number,
+    name: string,
+    subscribers: number
 }
 
-export default PostCollection
+interface PostProps {
+    id: number,
+    likes: number,
+    dislikes: number,
+    title: string,
+    community: Community
+}
+
+
+const PostCollection = ({ posts }: {posts: Array<PostProps>}) => {
+
+  const mappedPosts = posts.map((post) => {
+    return <PostCard key={post.id} post={post} />;
+  });
+
+  return <div>{mappedPosts}</div>;
+};
+
+export default PostCollection;
