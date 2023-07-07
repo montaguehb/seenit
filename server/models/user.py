@@ -11,10 +11,10 @@ class User(db.Model, SerializerMixin):
 
     post = db.relationship("Post", back_populates="user")
     comment = db.relationship("Comment", back_populates="user")
-    user_community = db.relationship("UserCommunity", back_populates="user")
+    user_community = db.relationship("UserCommunity")
     user_post = db.relationship("UserPost", back_populates="user")
 
-    serialize_rules = ("-post.user", "-post.comment","-user_community.user", "-user_post.user", "-comment.user", "-comment.post", "-_password_digest")
+    serialize_rules = ("-post.user", "-post.comment", "-user_post.user", "-comment.user", "-comment.post", "-_password_digest")
 
     @hybrid_property
     def password_digest(self):
