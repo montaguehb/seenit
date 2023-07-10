@@ -11,7 +11,5 @@ class UserCommunity(db.Model):
     user = db.relationship("User", back_populates="user_community")
     # community = db.relationship("Community")
 
-    # serialize_rules = ("-user.user_community")
-
 from models.user import User
 from models.community import Community

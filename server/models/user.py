@@ -15,17 +15,6 @@ class User(db.Model):
     user_community = db.relationship("UserCommunity", back_populates="user")
     user_post = db.relationship("UserPost", back_populates="user")
 
-    # serialize_rules = (
-    #     "-post.user",
-    #     "-post.comment",
-    #     "-user_post.user",
-    #     "-comment.user",
-    #     "-comment.post",
-    #     "-comment.parent_comment",
-    #     "-_password_digest",
-    #     "-user_community.user",
-    # )
-
     @hybrid_property
     def password_digest(self):
         return self._password_digest

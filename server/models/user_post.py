@@ -11,7 +11,6 @@ class UserPost(db.Model):
 
     user = db.relationship("User", back_populates="user_post")
     post = db.relationship("Post")
-    # serialize_rules=("-user.user_post")
     
 from models.user import User
 from models.post import Post
