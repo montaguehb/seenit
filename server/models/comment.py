@@ -1,6 +1,7 @@
 from models import db, SerializerMixin
 
-class Comment(db.Model, SerializerMixin):
+
+class Comment(db.Model):
     __tablename__ = "comment"
 
     id = db.Column(db.Integer, primary_key=True)
@@ -15,9 +16,8 @@ class Comment(db.Model, SerializerMixin):
 
     user = db.relationship("User", back_populates="comment")
     post = db.relationship("Post", back_populates="comment")
-    # parent_comment = db.relationship("Comment")
+    child_comment = db.relationship("Comment")
 
-    serialize_rules = ("-user.comment", "-user.post", "-post.comment", "-post.user")
 
 from models.user import User
 from models.post import Post

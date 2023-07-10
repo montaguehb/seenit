@@ -1,6 +1,6 @@
-from models import db, SerializerMixin
+from models import db
 
-class UserCommunity(db.Model, SerializerMixin):
+class UserCommunity(db.Model):
     __tablename__ = "user_community"
 
     id = db.Column(db.Integer, primary_key=True)
@@ -9,9 +9,7 @@ class UserCommunity(db.Model, SerializerMixin):
     community_id = db.Column(db.Integer, db.ForeignKey("community.id"))
 
     user = db.relationship("User", back_populates="user_community")
-    # community = db.relationship("Community")
-
-    serialize_rules = ("-user.user_community")
+    community = db.relationship("Community")
 
 from models.user import User
 from models.community import Community
