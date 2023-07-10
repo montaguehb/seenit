@@ -1,4 +1,3 @@
-import { AppProps } from "next/app";
 import PostCard from "./PostCard";
 import Link from "next/link";
 
@@ -17,6 +16,7 @@ interface PostProps {
 }
 
 const PostCollection = ({ posts }: { posts: Array<PostProps> }) => {
+  debugger
   const mappedPosts = posts.map((post) => {
     return (
       <Link key={post.id} href={`/communities/${post.community.id}/posts/${post.id}`}>
