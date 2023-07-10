@@ -21,6 +21,7 @@ class User(db.Model, SerializerMixin):
         "-user_post.user",
         "-comment.user",
         "-comment.post",
+        "-comment.parent_comment",
         "-_password_digest",
         "-user_community.user",
     )
