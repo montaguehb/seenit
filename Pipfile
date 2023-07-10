@@ -17,6 +17,7 @@ flask-restful = "*"
 flask-bcrypt = "*"
 flask-jwt-extended = {extras = ["asymmetric_crypto"], version = "*"}
 flask-marshmallow = "*"
+marshmallow-sqlalchemy = "*"
 
 [requires]
 python_full_version = "3.8.13"

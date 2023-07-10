@@ -1,7 +1,7 @@
 from models import db, SerializerMixin
 
 
-class Comment(db.Model, SerializerMixin):
+class Comment(db.Model):
     __tablename__ = "comment"
 
     id = db.Column(db.Integer, primary_key=True)

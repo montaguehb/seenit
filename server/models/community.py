@@ -1,6 +1,6 @@
-from models import db, SerializerMixin
+from models import db
 
-class Community(db.Model, SerializerMixin):
+class Community(db.Model):
     __tablename__ = "community"
 
     id = db.Column(db.Integer, primary_key=True)
