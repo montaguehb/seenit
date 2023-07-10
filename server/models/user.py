@@ -1,5 +1,6 @@
 from models import db, bcrypt, SerializerMixin, hybrid_property
 
+
 class User(db.Model, SerializerMixin):
     __tablename__ = "user"
 
@@ -14,7 +15,15 @@ class User(db.Model, SerializerMixin):
     user_community = db.relationship("UserCommunity", back_populates="user")
     user_post = db.relationship("UserPost", back_populates="user")
 
-    serialize_rules = ("-post.user", "-post.comment","-user_community.user", "-user_post.user", "-comment.user", "-comment.post", "-_password_digest")
+    serialize_rules = (
+        "-post.user",
+        "-post.comment",
+        "-user_post.user",
+        "-comment.user",
+        "-comment.post",
+        "-_password_digest",
+        "-user_community.user",
+    )
 
     @hybrid_property
     def password_digest(self):
@@ -29,6 +38,7 @@ class User(db.Model, SerializerMixin):
         return bcrypt.check_password_hash(
             self._password_digest, password.encode("utf-8")
         )
+
 
 from models.post import Post
 from models.comment import Comment
