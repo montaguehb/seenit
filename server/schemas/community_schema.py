@@ -5,5 +5,6 @@ import re
 class CommunitySchema(ma.SQLAlchemyAutoSchema):
     class Meta:
         model = Community
+        include_relationships = True
         load_instance = True
         

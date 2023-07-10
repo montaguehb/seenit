@@ -16,7 +16,7 @@ class Comment(db.Model):
 
     user = db.relationship("User", back_populates="comment")
     post = db.relationship("Post", back_populates="comment")
-    parent_comment = db.relationship("Comment")
+    child_comment = db.relationship("Comment")
 
 
 from models.user import User

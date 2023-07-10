@@ -6,8 +6,9 @@ from schemas.user_schema import UserSchema
 class PostSchema(ma.SQLAlchemyAutoSchema):
     class Meta:
         model = Post
+        include_relationships = True
         load_instance = True
 
     user = fields.Nested(UserSchema, exclude=("post", "comment", "user_community"))
     comment = fields.Nested(CommentSchema, exclude=("post", "user"), many=True)
-    Community = fields.Nested(CommunitySchema)
+    community = fields.Nested(CommunitySchema, exclude=("post",))

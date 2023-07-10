@@ -16,7 +16,7 @@ class Post(db.Model):
 
     user = db.relationship("User", back_populates="post")
     comment = db.relationship("Comment", back_populates="post")
-    community = db.relationship("Community")
+    community = db.relationship("Community", back_populates="post")
 
 
 from models.user import User
