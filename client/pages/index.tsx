@@ -1,7 +1,5 @@
-import { GetServerSideProps } from "next";
 import useSWR from "swr";
 import styles from "../styles/page.module.css";
-import { useEffect } from "react";
 import PostCollection from "@/components/PostCollection";
 
 // type Community = {
@@ -26,6 +24,10 @@ export default function Home() {
   if (isLoading) {
     return <p>Loading...</p>
   }
+  else if (error) {
+    return <p>Unable to load posts</p>
+  }
+
   return <main className={styles.main}>
     <PostCollection posts={data} />
   </main>;

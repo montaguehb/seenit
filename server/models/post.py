@@ -1,5 +1,6 @@
 from models import db, SerializerMixin
 
+
 class Post(db.Model, SerializerMixin):
     __tablename__ = "post"
 
@@ -16,8 +17,15 @@ class Post(db.Model, SerializerMixin):
     user = db.relationship("User", back_populates="post")
     comment = db.relationship("Comment", back_populates="post")
     community = db.relationship("Community")
-    
-    serialize_rules = ("-comment.post", "-comment.user", "-user.post", "-user.comment")
+
+    serialize_rules = (
+        "-comment.post",
+        "-comment.user",
+        "-user.post",
+        "-user.comment",
+        "-user.user_community",
+    )
+
 
 from models.user import User
 from models.comment import Comment

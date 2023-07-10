@@ -9,7 +9,7 @@ class UserCommunity(db.Model, SerializerMixin):
     community_id = db.Column(db.Integer, db.ForeignKey("community.id"))
 
     user = db.relationship("User", back_populates="user_community")
-    community = db.relationship("Community")
+    # community = db.relationship("Community")
 
     serialize_rules = ("-user.user_community")
 
