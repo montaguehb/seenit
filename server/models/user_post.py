@@ -9,7 +9,7 @@ class UserPost(db.Model, SerializerMixin):
     save = db.Column(db.Boolean)
 
     user = db.relationship("User", back_populates="user_post")
-
-    serialize_rules=("-user.user_post")
+    post = db.relationship("Post")
+    # serialize_rules=("-user.user_post")
     
 from models.user import User

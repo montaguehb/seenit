@@ -18,13 +18,13 @@ class Post(db.Model, SerializerMixin):
     comment = db.relationship("Comment", back_populates="post")
     community = db.relationship("Community")
 
-    serialize_rules = (
-        "-comment.post",
-        "-comment.user",
-        "-user.post",
-        "-user.comment",
-        "-user.user_community",
-    )
+    # serialize_rules = (
+    #     "-comment.post",
+    #     "-comment.user",
+    #     "-user.post",
+    #     "-user.comment",
+    #     "-user.user_community",
+    # )
 
 
 from models.user import User
