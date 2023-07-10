@@ -11,6 +11,3 @@ class PostSchema(ma.SQLAlchemyAutoSchema):
     user = fields.Nested(UserSchema, exclude=("post", "comment", "user_community"))
     comment = fields.Nested(CommentSchema, exclude=("post", "user"), many=True)
     Community = fields.Nested(CommunitySchema)
-    
-
-post_schema = PostSchema(many=True)
