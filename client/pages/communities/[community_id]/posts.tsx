@@ -4,8 +4,8 @@ import useSWR from "swr";
 
 const Posts = () => {
   const router = useRouter();
-  const { data, isLoading, error } = useSWR(
-    () => router.query.community_id
+  const { data, isLoading, error } = useSWR(() =>
+    router.query.community_id
       ? `/api/v1/communities/${router.query.community_id}/posts`
       : null
   );
@@ -14,7 +14,17 @@ const Posts = () => {
   } else if (error) {
     return <p>error</p>;
   }
-  return <PostCollection posts={data.post} />;
+  return (
+    <PostCollection
+      posts={data.post.map((post: any) => {
+        post["community"] = {
+          id: data.id,
+          name: data.name,
+        };
+        return post;
+      })}
+    />
+  );
 };
 
 export default Posts;
