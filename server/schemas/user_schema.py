@@ -17,7 +17,8 @@ class UserSchema(ma.SQLAlchemySchema):
             "comment",
             "user_community",
             "user_post",
-            "post"
+            "post",
+            "email"
         )
 
     post = fields.Nested("PostSchema", exclude=("user", "comment",), many=True)

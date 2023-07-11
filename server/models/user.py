@@ -6,8 +6,9 @@ class User(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.VARCHAR, nullable=False, unique=True)
+    email = db.Column(db.String, nullable=False, unique=True)
     role = db.Column(db.String)
-    _password_digest = db.Column(db.String, nullable=False)
+    _password_digest = db.Column(db.String)
     created_at = db.Column(db.DateTime, server_default=db.func.now())
 
     post = db.relationship("Post", back_populates="user")

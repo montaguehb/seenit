@@ -1,11 +1,10 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
-export function middleware(request: NextRequest) {
-    const endpoint = request.url.replace("http://localhost:3000", "")
-  return NextResponse.redirect(new URL(endpoint, "http://localhost:5000"));
+export async function middleware(request: NextRequest) {
+  return NextResponse.next()
 }
 
-export const config = {
-  matcher: ["/api/:path*"],
-};
+// export const config = {
+//   matcher: ["/api/:path*"],
+// };
