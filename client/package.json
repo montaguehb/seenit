@@ -13,14 +13,16 @@
     "@types/react": "18.2.14",
     "@types/react-dom": "18.2.6",
     "eslint": "8.44.0",
-    "eslint-config-next": "13.4.9",
     "formik": "^2.4.2",
-    "next": "13.4.9",
-    "react": "18.2.0",
-    "react-dom": "18.2.0",
+    "next": "^13.4.9",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
     "swr": "^2.2.0",
     "typescript": "5.1.6",
     "yup": "^1.2.0"
   },
-  "proxy": "http://localhost:5000/api/v1"
+  "proxy": "http://localhost:5000/api/v1",
+  "devDependencies": {
+    "eslint-config-next": "^13.4.9"
+  }
 }

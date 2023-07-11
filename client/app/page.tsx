@@ -1,3 +1,4 @@
+"use client"
 import useSWR from "swr";
 import styles from "../styles/page.module.css";
 import PostCollection from "@/components/PostCollection";
