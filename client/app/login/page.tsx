@@ -1,3 +1,4 @@
+"use client"
 import { Formik, Field, Form } from "formik";
 import { useContext } from "react";
 import useSWRMutation from "swr/mutation";

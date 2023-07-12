@@ -1,6 +1,4 @@
-/**
- * @type {import('next').NextConfig}
- **/
+/** @type {import('next').NextConfig} */
 
 const nextConfig = {
     async rewrites() {
@@ -8,7 +6,7 @@ const nextConfig = {
             {
               source: '/api/:path*',
               destination: 'http://localhost:5000/api/:path*' // Proxy to Backend
-            }
+            },
           ]
     }
 }
