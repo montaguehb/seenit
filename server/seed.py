@@ -17,7 +17,7 @@ def user():
     for _ in range(10):
         user_profile = fake.profile()
         new_user = User(
-            username=user_profile["username"], role="user", password_digest="password"
+            username=user_profile["username"], role="user", password_digest="password", email=fake.email()
         )
         db.session.add(new_user)
     db.session.commit()
