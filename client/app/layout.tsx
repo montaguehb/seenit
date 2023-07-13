@@ -1,4 +1,9 @@
 import Nav from "@/components/Nav";
+<<<<<<< Updated upstream
+=======
+import Providers from "@/components/Providers";
+import Sidebar from "@/components/Sidebar";
+>>>>>>> Stashed changes
 
 export const metadata = {
   title: "Next.js",
@@ -20,8 +25,14 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
+<<<<<<< Updated upstream
         <Nav/>
           {children}
+=======
+        <Nav />
+        <Sidebar />
+        <Providers>{children}</Providers>
+>>>>>>> Stashed changes
       </body>
     </html>
   );

@@ -50,7 +50,7 @@ def signup():
 
 @app.route("/api/v1/login", methods=["POST"])
 def signin():
-    user_schema = UserSchema(exclude=("comment", "post", "user_community"))
+    user_schema = UserSchema()
     user_info = request.get_json()
     if user := User.query.filter_by(username=user_info.get("username", "")).first():
         if user.authenticate(user_info.get("password", "")):
