@@ -1,5 +1,5 @@
 import Comment from "@/components/Comment";
-
+import { CommentType } from "@/lib/types";
 const Post = async ({
   params,
 }: {
@@ -9,8 +9,9 @@ const Post = async ({
     `http://localhost:5000/api/v1/communities/${params.community_id}/posts/${params.post_id}`,
     { cache: 'no-store' }
   );
-  const data = await response.json();
-  const comments = [[<Comment comment={data.comment[0]}/>, [<Comment comment={data.comment[0].child_comment[0]}/>, <Comment comment={data.comment[0].child_comment[1]}/>]], <Comment comment={data.comment[1]}/>]
+  const data: {body: string; comment: Array<CommentType>} = await response.json();
+  const comments = data.comment.map(comment => <Comment key={comment.id} comment={comment}/>)
+
   return (
     <div>
       <p>{data.body}</p>
