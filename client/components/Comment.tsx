@@ -1,4 +1,3 @@
-"use client"
 import { CommentType } from "@/lib/types";
 
 const Comment = ({ comment }: { comment: CommentType }) => {

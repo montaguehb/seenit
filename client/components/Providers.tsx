@@ -1,3 +1,4 @@
+import AuthProvider from "./AuthProvider";
 
 const fetcher = async (uri: string) => {
   const resp = await fetch(uri);
@@ -7,7 +8,7 @@ const fetcher = async (uri: string) => {
 };
 
 const Providers = ({ children }: { children: React.ReactNode }) => {
-  return <div>{children}</div>;
+  return <AuthProvider>{children}</AuthProvider>;
 };
 
 export default Providers;
