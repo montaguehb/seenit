@@ -10,6 +10,8 @@ const Nav = () => {
         <Link href="/signup">Signup</Link>
         <br/>
         <Link href="/login">Login</Link>
+        <br/>
+        <Link href="/profile">Profile</Link>
     </div>
   )
 }

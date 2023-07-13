@@ -1,4 +1,4 @@
-from models import db, SerializerMixin
+from models import db, SerializerMixin, joinedload
 
 
 class Post(db.Model):

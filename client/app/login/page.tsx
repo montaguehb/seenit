@@ -1,6 +1,7 @@
 "use client"
+import { UserContext } from "@/components/AuthProvider";
 import { Formik, Field, Form } from "formik";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import useSWRMutation from "swr/mutation";
 
 interface Values {
@@ -16,15 +17,20 @@ const sendRequest = async (url: string, { arg }: { arg: Values }) => {
     },
     body: JSON.stringify(arg),
   });
-  return await resp.json();
+  if (resp.ok) {
+    return await resp.json();
+  }
 };
 
 const Login = () => {
   const { trigger, data, isMutating, error } = useSWRMutation("/api/v1/login", sendRequest);
+  const { updateUser } = useContext(UserContext)
 
-  if(data) {
+  useEffect(() => {
+    updateUser(data)
 
-  }
+  }, [data])
+
   return (
     <div>
       <h1>login</h1>
