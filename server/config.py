@@ -4,15 +4,20 @@ from flask_migrate import Migrate
 from flask_restful import Api
 from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS, cross_origin
-from sqlalchemy import MetaData
+from sqlalchemy import MetaData, select
 from flask_jwt_extended import JWTManager
 from datetime import timedelta
+import logging
 
 from schemas import ma
 
 import os
 
 app = Flask(__name__)
+
+logging.basicConfig()
+logging.getLogger("sqlalchemy.engine").setLevel(logging.INFO)
+
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///app.db"
 
 app.secret_key = os.environ.get("SECRET_KEY", "dev")

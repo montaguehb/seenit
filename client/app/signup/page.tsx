@@ -21,7 +21,7 @@ const sendRequest = async (url: string, { arg }: { arg: Values }) => {
 };
 
 const Signup = () => {
-  const { trigger, data, isMutating, error } = useSWRMutation("http://localhost:5000/api/v1/signup", sendRequest);
+  const { trigger, data, isMutating, error } = useSWRMutation("/api/v1/signup", sendRequest);
   if (data) {
     console.log(data)
   }

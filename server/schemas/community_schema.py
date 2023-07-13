@@ -9,4 +9,4 @@ class CommunitySchema(ma.SQLAlchemyAutoSchema):
         include_relationships = True
         load_instance = True
     
-    post=fields.Nested("PostSchema", exclude=("community",), many=True)
+    post=fields.Nested("PostSchema", exclude=("community",), many=True, dump_default=[])
