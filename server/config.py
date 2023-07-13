@@ -1,10 +1,10 @@
-from flask import Flask
+from flask import Flask, jsonify
 from flask_bcrypt import Bcrypt
 from flask_migrate import Migrate
 from flask_restful import Api
 from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS, cross_origin
-from sqlalchemy import MetaData, select
+from sqlalchemy import MetaData, select, distinct
 from flask_jwt_extended import JWTManager
 from datetime import timedelta
 import logging
@@ -15,8 +15,8 @@ import os
 
 app = Flask(__name__)
 
-logging.basicConfig()
-logging.getLogger("sqlalchemy.engine").setLevel(logging.INFO)
+# logging.basicConfig()
+# logging.getLogger("sqlalchemy.engine").setLevel(logging.INFO)
 
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///app.db"
 
