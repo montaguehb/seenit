@@ -27,8 +27,10 @@ const Login = () => {
   const { updateUser } = useContext(UserContext)
 
   useEffect(() => {
-    updateUser(data)
-
+    if(data) {
+      debugger
+      updateUser(data.user)
+    }
   }, [data])
 
   return (

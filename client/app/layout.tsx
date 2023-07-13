@@ -1,3 +1,4 @@
+import Communities from "@/components/Communities";
 import Nav from "@/components/Nav";
 import Providers from "@/components/Providers";
 import Sidebar from "@/components/Sidebar";
@@ -16,8 +17,10 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <Nav />
-        <Sidebar />
-        <Providers>{children}</Providers>
+        <Providers>
+          <Sidebar/>
+          {children}
+        </Providers>
       </body>
     </html>
   );

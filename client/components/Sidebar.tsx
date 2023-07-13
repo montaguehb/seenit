@@ -1,6 +1,10 @@
+import Communities from "./Communities"
+
 const Sidebar = () => {
   return (
-    <div>Sidebar</div>
+    <div>
+      <Communities />
+    </div>
   )
 }
 

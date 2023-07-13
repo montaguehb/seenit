@@ -21,7 +21,7 @@ export interface PostProps {
 }
 
 export type UserContextType = {
-  user: any;
+  user: any | null;
   updateUser: any;
 }
 

@@ -1,15 +1,22 @@
-"use client"
-import { useContext } from "react";
+"use client";
+import React, { useContext } from "react";
 import { UserContext } from "./AuthProvider";
 import { CommunityType } from "@/lib/types";
 import CommunityCard from "./CommunityCard";
 
 const Communities = () => {
   const { user } = useContext(UserContext);
-  const mappedCommunities = user.user_community.map(
-    (community: CommunityType) => <CommunityCard community={community} />
-  );
-  return <div>{mappedCommunities}</div>;
+  if (user) {
+    const mappedCommunities = user.user_community.map(
+      (community: CommunityType) => {
+        return <CommunityCard key={community.id} community={community} />;
+      }
+    );
+
+    return <div>{ mappedCommunities }</div>;
+  } else {
+    return <></>;
+  }
 };
 
 export default Communities;
