@@ -10,6 +10,7 @@ from config import app, db, api, jwt, cross_origin
 from models.user import User
 
 from blueprints.users import Users
+from blueprints.user_by_id import UserById
 from blueprints.posts import Posts
 from blueprints.posts_by_communities import PostsByCommunityId
 from blueprints.post_by_id import PostById
@@ -17,6 +18,7 @@ from blueprints.post_by_id import PostById
 from schemas.user_schema import UserSchema
 
 api.add_resource(Users, "/users")
+api.add_resource(UserById, "/users/<int:id>")
 api.add_resource(Posts, "/posts")
 api.add_resource(PostsByCommunityId, "/communities/<int:community_id>/posts")
 api.add_resource(PostById, "/communities/<int:community_id>/posts/<int:post_id>")

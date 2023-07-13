@@ -1,4 +1,3 @@
-"use client";
 import PostCollection from "@/components/PostCollection";
 
 const Posts = async ({ params }: { params: { community_id: string } }) => {

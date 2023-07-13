@@ -1,19 +1,15 @@
-"use client"
+"use client";
+import { UserContext } from "@/components/AuthProvider";
 import { Formik, Field, Form } from "formik";
 import { useContext } from "react";
 import useSWRMutation from "swr/mutation";
+import { ValuesInterface } from "@/lib/types"
 
-interface Values {
-  username: string;
-  email: string;
-  password: string;
-}
-
-const sendRequest = async (url: string, { arg }: { arg: Values }) => {
+const sendRequest = async (url: string, { arg }: { arg: ValuesInterface }) => {
   const resp = await fetch(url, {
     method: "POST",
     headers: {
-        "Content-Type": "application/json"
+      "Content-Type": "application/json",
     },
     body: JSON.stringify(arg),
   });
@@ -21,10 +17,16 @@ const sendRequest = async (url: string, { arg }: { arg: Values }) => {
 };
 
 const Signup = () => {
-  const { trigger, data, isMutating, error } = useSWRMutation("http://localhost:5000/api/v1/signup", sendRequest);
+  const { trigger, data, isMutating, error } = useSWRMutation(
+    "/api/v1/signup",
+    sendRequest
+  );
+  const { updateUser } = useContext(UserContext);
+
   if (data) {
-    console.log(data)
+    updateUser(data);
   }
+
   return (
     <div>
       <h1>login</h1>
@@ -34,7 +36,7 @@ const Signup = () => {
           email: "",
           password: "",
         }}
-        onSubmit={(values: Values) => trigger(values)}
+        onSubmit={(values: ValuesInterface) => trigger(values)}
       >
         <Form>
           <label htmlFor="username">username</label>
@@ -42,7 +44,12 @@ const Signup = () => {
           <label htmlFor="email">Email</label>
           <Field id="email" name="email" placeholder="email" type="email" />
           <label htmlFor="password">password</label>
-          <Field id="password" name="password" placeholder="password" type="password" />
+          <Field
+            id="password"
+            name="password"
+            placeholder="password"
+            type="password"
+          />
           <button type="submit">Submit</button>
         </Form>
       </Formik>

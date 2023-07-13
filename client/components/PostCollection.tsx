@@ -1,19 +1,7 @@
 import PostCard from "./PostCard";
 import Link from "next/link";
+import { PostProps } from "@/lib/types";
 
-type Community = {
-  id: number;
-  name: string;
-  subscribers?: number;
-};
-
-interface PostProps {
-  id: number;
-  likes: number;
-  dislikes: number;
-  title: string;
-  community: Community;
-}
 
 const PostCollection = ({ posts }: { posts: Array<PostProps> }) => {
   const mappedPosts = posts.map((post) => {

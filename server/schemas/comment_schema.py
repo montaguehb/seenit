@@ -1,8 +1,8 @@
+import typing
 from schemas import fields, validate, ma, validates, ValidationError
 from models.comment import Comment
 
-class CommentSchema(ma.SQLAlchemyAutoSchema):
-
+class CommentSchema(ma.SQLAlchemyAutoSchema):  
     class Meta:
         model = Comment
         include_relationships = True
@@ -11,4 +11,6 @@ class CommentSchema(ma.SQLAlchemyAutoSchema):
 
     user = fields.Nested("UserSchema", exclude=("comment", "post", "user_community"))
     post = fields.Nested("PostSchema", exclude=("comment", "user"))
-    child_comment = fields.Nested("CommentSchema", exclude=("post",), many=True)
+    child_comment = fields.Nested("CommentSchema", exclude=("post",), many=True, dump_default=[])
+    
+    
