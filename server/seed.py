@@ -35,14 +35,14 @@ def community():
 
 
 def user_community():
-    users = User.query.count()
+    users = User.query.all()
 
     UserCommunity.query.delete()
 
-    for _ in range(100):
+    for user in users:
         for community in db.session.execute(db.select(Community)).scalars():
             new_user_community = UserCommunity(
-                role="user", user_id=randint(1, users), community_id=community.id
+                role="user", user_id=user.id, community_id=community.id
             )
             community.subscribers = community.subscribers + 1
             db.session.add(new_user_community, community)
