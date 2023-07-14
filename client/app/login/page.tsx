@@ -28,7 +28,6 @@ const Login = () => {
 
   useEffect(() => {
     if(data) {
-      debugger
       updateUser(data.user)
     }
   }, [data])

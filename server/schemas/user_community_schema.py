@@ -8,4 +8,5 @@ class UserCommunitySchema(ma.SQLAlchemyAutoSchema):
         include_fk = True
         load_instance = True
         
-    community = fields.Nested(CommunitySchema, exclude=("user_community",))
+    community = fields.Nested(CommunitySchema, exclude=("post",))
+    user = fields.Nested("UserSchema", only=("username",))

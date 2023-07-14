@@ -8,7 +8,7 @@ const Communities = () => {
   const { user } = useContext(UserContext);
   if (user) {
     const mappedCommunities = user.user_community.map(
-      (community: CommunityType) => {
+      ({community}: {community: CommunityType}) => {
         return <CommunityCard key={community.id} community={community} />;
       }
     );
