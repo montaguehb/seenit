@@ -5,6 +5,8 @@ from flask_jwt_extended import (
     create_refresh_token,
     set_access_cookies,
     set_refresh_cookies,
+    jwt_required,
+    get_jwt_identity
 )
 from config import app, db, api, jwt
 from models.user import User
@@ -64,6 +66,14 @@ def signin():
             set_refresh_cookies(response, refresh_token)
             return response
     return make_response({"error": "Invalid credentials"}, 401)
+
+@app.route("/api/v1/me", methods=["GET"])
+@jwt_required()
+def me():
+    if id_ := get_jwt_identity():
+        if user := db.session.get(User, id_):
+            return make_response(user_schema.dump(user), 200)
+    return make_response({"error": "Unauthorized"}, 401)
 
 if __name__ == "__main__":
     app.run(port=5000, debug=True, use_debugger=False, use_reloader=False)

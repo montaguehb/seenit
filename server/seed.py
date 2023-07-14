@@ -36,19 +36,16 @@ def community():
 
 def user_community():
     users = User.query.count()
-    communities = Community.query.count()
 
     UserCommunity.query.delete()
 
     for _ in range(100):
-        rand_community=randint(1, communities-1)
-        new_user_community = UserCommunity(
-            role="user", user_id=randint(0, users), community_id=rand_community
-        )
-        updated_community = db.session.get(Community, rand_community)
-        updated_community.subscribers = updated_community.subscribers + 1
-        db.session.add(new_user_community, updated_community)
-        
+        for community in db.session.execute(db.select(Community)).scalars():
+            new_user_community = UserCommunity(
+                role="user", user_id=randint(1, users), community_id=community.id
+            )
+            community.subscribers = community.subscribers + 1
+            db.session.add(new_user_community, community)
     db.session.commit()
 
 def post():
