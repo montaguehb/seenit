@@ -6,7 +6,7 @@ from flask_jwt_extended import (
     set_access_cookies,
     set_refresh_cookies,
 )
-from config import app, db, api, jwt, cross_origin
+from config import app, db, api, jwt
 from models.user import User
 
 from blueprints.users import Users
@@ -16,6 +16,8 @@ from blueprints.posts_by_communities import PostsByCommunityId
 from blueprints.post_by_id import PostById
 
 from schemas.user_schema import UserSchema
+
+user_schema = UserSchema()
 
 api.add_resource(Users, "/users")
 api.add_resource(UserById, "/users/<int:id>")
@@ -32,7 +34,7 @@ def profile():
 
 @app.route("/api/v1/signup", methods=["POST"])
 def signup():
-    user_schema = UserSchema(exclude=("comment", "post", "user_community"))
+    
     req = request.get_json()
     try:
         user = user_schema.load(
@@ -52,7 +54,6 @@ def signup():
 
 @app.route("/api/v1/login", methods=["POST"])
 def signin():
-    user_schema = UserSchema(exclude=("comment", "post", "user_community"))
     user_info = request.get_json()
     if user := User.query.filter_by(username=user_info.get("username", "")).first():
         if user.authenticate(user_info.get("password", "")):

@@ -1,5 +1,7 @@
+import Communities from "@/components/Communities";
 import Nav from "@/components/Nav";
 import Providers from "@/components/Providers";
+import Sidebar from "@/components/Sidebar";
 
 export const metadata = {
   title: "Next.js",
@@ -15,7 +17,10 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <Nav />
-        <Providers>{children}</Providers>
+        <Providers>
+          <Sidebar/>
+          {children}
+        </Providers>
       </body>
     </html>
   );

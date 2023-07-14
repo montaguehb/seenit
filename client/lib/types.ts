@@ -6,7 +6,7 @@ export type CommentType = {
   dislikes: number;
 };
 
-export type Community = {
+export type CommunityType = {
   id: number;
   name: string;
   subscribers?: number;
@@ -17,11 +17,11 @@ export interface PostProps {
   likes: number;
   dislikes: number;
   title: string;
-  community: Community;
+  community: CommunityType;
 }
 
 export type UserContextType = {
-  user: any;
+  user: any | null;
   updateUser: any;
 }
 
