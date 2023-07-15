@@ -24,7 +24,6 @@ const ProfileMenu = () => {
   };
 
   if (user) {
-    debugger
     return (
       <Box sx={{ flexGrow: 0 }}>
         <Tooltip title="Open settings">
@@ -57,7 +56,6 @@ const ProfileMenu = () => {
       </Box>
     );
   } else {
-    debugger
     return (
       <Button href="/login" sx={{ color: "white" }} variant="text">
         login
