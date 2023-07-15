@@ -29,12 +29,14 @@ const fetcher = async (uri: string) => {
 const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [user, setUser] = useState(null);
   const { data, isLoading, error } = useSWR("/api/v1/me", fetcher);
+
   const updateUser = (user: any) => {
     setUser(user);
   };
+
   useEffect(() => {
-    if (!user && data) {
-          setUser(data);
+    if (data) {
+      updateUser(data);
     }
   }, [data]);
 
