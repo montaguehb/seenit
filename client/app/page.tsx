@@ -1,4 +1,3 @@
-import styles from "../styles/page.module.css";
 import PostCollection from "@/components/PostCollection";
 
 export default async function Home() {
@@ -6,7 +5,7 @@ export default async function Home() {
   const data = await resp.json()
 
   return (
-    <main className={styles.main}>
+    <main>
       <PostCollection posts={data} />
     </main>
   );
