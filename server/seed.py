@@ -58,7 +58,7 @@ def post():
             likes=randint(1, 1000),
             dislikes=randint(0, 100),
             title=fake.sentence(nb_words=5),
-            body=fake.paragraph(nb_sentences=5),
+            body=fake.paragraph(nb_sentences=20),
             user_id=randint(1, users),
             community_id=randint(1, communities)
         )

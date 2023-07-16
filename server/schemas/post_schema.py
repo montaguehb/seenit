@@ -9,7 +9,8 @@ class PostSchema(ma.SQLAlchemyAutoSchema):
         model = Post
         include_relationships = True
         load_instance = True
-
+    
+    created_at = fields.DateTime('%Y-%m-%d %H:%M:%S GMT')    
     user = fields.Nested(UserSchema, exclude=("post", "comment", "user_community"))
     comment = fields.Nested(CommentSchema, exclude=("post", "user"), many=True, dump_default=[])
     community = fields.Nested(CommunitySchema, exclude=("post",))
