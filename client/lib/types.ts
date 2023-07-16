@@ -27,6 +27,6 @@ export type UserContextType = {
 
 export interface ValuesInterface {
   username: string;
-  email: string;
+  email?: string | null;
   password: string;
 }
