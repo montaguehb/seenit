@@ -10,4 +10,4 @@ class UserCommunitiesById(Resource):
         if user_community := db.session.get(UserCommunity, id):
             db.session.delete(user_community)
             db.session.commit()
-            return make_response({}, 200)
+            return make_response({"message": "succesfully deleted"}, 200)

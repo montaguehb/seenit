@@ -20,10 +20,7 @@ const Posts = async ({ params }: { params: { community_id: string } }) => {
           return post;
         })}
       />
-      {/* <JoinButton community={
-            {id: dynamicData.id,
-            name: dynamicData.name,}
-          } /> */}
+      <JoinButton community_id={params.community_id} />
     </Box>
   );
 };
