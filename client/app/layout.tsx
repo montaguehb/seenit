@@ -23,9 +23,11 @@ export default function RootLayout({
         />
       </head>
       <body>
-        <Nav />
-        <Sidebar />
-        <Providers>{children}</Providers>
+        <Providers>
+          <Nav />
+          <Sidebar />
+          {children}
+        </Providers>
       </body>
     </html>
   );

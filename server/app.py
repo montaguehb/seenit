@@ -20,6 +20,7 @@ from blueprints.user_communities import UserCommunities
 from blueprints.user_communities_by_id import UserCommunitiesById
 from blueprints.user_posts import UserPosts
 from blueprints.user_posts_by_id import UserPostById
+from blueprints.communities import Communities
 from schemas.user_schema import UserSchema
 
 user_schema = UserSchema(exclude=("user_post.post", "comment"))
@@ -33,6 +34,7 @@ api.add_resource(UserCommunities, "/usercommunities")
 api.add_resource(UserCommunitiesById, "/usercommunities/<int:id>")
 api.add_resource(UserPosts, "/userposts")
 api.add_resource(UserPostById, "/userposts/<int:id>")
+api.add_resource(Communities, "/communities")
 
 @app.route("/api/v1/profile", methods=["GET"])
 def profile():
