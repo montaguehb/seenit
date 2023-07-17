@@ -26,5 +26,6 @@ class UserSchema(ma.SQLAlchemySchema):
     comment = fields.Nested(
         CommentSchema, exclude=("user", "post", "child_comment"), many=True
     )
+    user_post = fields.Nested("UserPostSchema", exclude=("user",), many=True, dump_default=[])
     user_community = fields.Nested(UserCommunitySchema, exclude=("user",), many=True, dump_default=[])
 

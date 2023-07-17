@@ -18,9 +18,11 @@ from blueprints.posts_by_communities import PostsByCommunityId
 from blueprints.post_by_id import PostById
 from blueprints.user_communities import UserCommunities
 from blueprints.user_communities_by_id import UserCommunitiesById
+from blueprints.user_posts import UserPosts
+from blueprints.user_posts_by_id import UserPostById
 from schemas.user_schema import UserSchema
 
-user_schema = UserSchema()
+user_schema = UserSchema(exclude=("user_post.post", "comment"))
 
 api.add_resource(Users, "/users")
 api.add_resource(UserById, "/users/<int:id>")
@@ -29,6 +31,8 @@ api.add_resource(PostsByCommunityId, "/communities/<int:community_id>/posts")
 api.add_resource(PostById, "/communities/<int:community_id>/posts/<int:post_id>")
 api.add_resource(UserCommunities, "/usercommunities")
 api.add_resource(UserCommunitiesById, "/usercommunities/<int:id>")
+api.add_resource(UserPosts, "/userposts")
+api.add_resource(UserPostById, "/userposts/<int:id>")
 
 @app.route("/api/v1/profile", methods=["GET"])
 def profile():
