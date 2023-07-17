@@ -21,6 +21,7 @@ from blueprints.user_communities_by_id import UserCommunitiesById
 from blueprints.user_posts import UserPosts
 from blueprints.user_posts_by_id import UserPostById
 from blueprints.communities import Communities
+from blueprints.comments import Comments
 from schemas.user_schema import UserSchema
 
 user_schema = UserSchema(exclude=("user_post.post", "comment"))
@@ -29,6 +30,7 @@ api.add_resource(Users, "/users")
 api.add_resource(UserById, "/users/<int:id>")
 api.add_resource(Posts, "/posts")
 api.add_resource(PostsByCommunityId, "/communities/<int:community_id>/posts")
+api.add_resource(Comments, "/comments")
 api.add_resource(PostById, "/communities/<int:community_id>/posts/<int:post_id>")
 api.add_resource(UserCommunities, "/usercommunities")
 api.add_resource(UserCommunitiesById, "/usercommunities/<int:id>")
