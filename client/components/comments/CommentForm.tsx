@@ -38,7 +38,7 @@ const CommentForm = ({
   parent_comment,
   updateReply,
 }: {
-  parent_comment: CommentType;
+  parent_comment: {id: number; post_id: number;};
   updateReply: any;
 }) => {
   const { user } = useContext(UserContext);

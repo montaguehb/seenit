@@ -7,7 +7,7 @@ const Comment = ({ comment }: { comment: CommentType }) => {
   return (
     <div>
       <p>{comment.body}</p>
-      <ReplyButton parent_comment={comment}/>
+      <ReplyButton parent_comment={{id: comment.id, post_id: comment.post_id}}/>
       {comment.child_comment ? mappedComment(comment.child_comment) : <></>}
     </div>
   );
