@@ -3,16 +3,11 @@
 import { createContext, useEffect, useState } from "react";
 import { UserContextType } from "@/lib/types";
 import useSWR from "swr";
-
+import { getCookie } from "@/lib/getters";
 const UserContext = createContext<UserContextType>({
   user: null,
   updateUser: () => {},
 });
-
-const getCookie = (name: string) => {
-  const cookie = document.cookie.match(new RegExp("(^| )" + name + "=([^;]+)"));
-  return cookie ? cookie[2] : "";
-};
 
 const fetcher = async (uri: string) => {
   const resp = await fetch(uri, {

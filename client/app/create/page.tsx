@@ -3,12 +3,15 @@ import { Formik, Form, Field } from "formik";
 import { Button, Typography } from "@mui/material";
 import useSWRMutation from "swr/mutation";
 import { useRouter } from "next/navigation";
-import { useEffect } from "react";
+import { useContext, useEffect } from "react";
+import { getCookie } from "@/lib/getters";
+import { UserContext } from "@/components/AuthProvider";
 
 const sendRequest = async (url: string, { arg }: { arg: { name: string } }) => {
   const resp = await fetch(url, {
     method: "POST",
     headers: {
+      "X-CSRF-TOKEN": getCookie("csrf_access_token"),
       "Content-Type": "application/json",
     },
     body: JSON.stringify(arg),
@@ -23,10 +26,14 @@ const Create = () => {
     "/api/v1/communities",
     sendRequest
   );
+  const {user, updateUser} = useContext(UserContext)
+
   const router = useRouter();
   useEffect(() => {
     if (data) {
       router.push(`/communities/${data.id}/posts`);
+      debugger
+      updateUser({...user, user_community: [...user.user_community, {community: {data}}]})
     }
   }, [data]);
 

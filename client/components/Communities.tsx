@@ -8,7 +8,7 @@ import { Button } from "@mui/material";
 const Communities = () => {
   const { user } = useContext(UserContext);
   const [mappedCommunities, setMappedCommunities] = useState([]);
-
+  
   useEffect(() => {
     if (user) {
       setMappedCommunities(
