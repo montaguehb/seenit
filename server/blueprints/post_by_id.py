@@ -18,7 +18,7 @@ comment_alias = aliased(Comment)
 
 
 class PostById(Resource):
-    # do you think that god stays in heaven out of fear?
+
     def get(self, community_id, post_id):
         if (
             result := db.session.execute(
@@ -37,5 +37,7 @@ class PostById(Resource):
             for comment in result:
                 post["comment"].append(comment_schema.dump(comment[1]))
             return make_response(post, 200)
+        elif result := db.session.get(Post, post_id):
+            return make_response(post_schema.dump(result), 200)
         else:
             return make_response({"error": "post not found"}, 404)

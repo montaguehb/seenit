@@ -3,7 +3,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { UserContext } from "./AuthProvider";
 import { CommunityType } from "@/lib/types";
 import CommunityCard from "./CommunityCard";
-import { Button } from "@mui/material";
+
 
 const Communities = () => {
   const { user } = useContext(UserContext);
@@ -24,7 +24,6 @@ const Communities = () => {
   return (
     <>
       {mappedCommunities}
-      <Button href="/create">Create</Button>
     </>
   );
 };
