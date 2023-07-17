@@ -16,7 +16,8 @@ from blueprints.user_by_id import UserById
 from blueprints.posts import Posts
 from blueprints.posts_by_communities import PostsByCommunityId
 from blueprints.post_by_id import PostById
-
+from blueprints.user_communities import UserCommunities
+from blueprints.user_communities_by_id import UserCommunitiesById
 from schemas.user_schema import UserSchema
 
 user_schema = UserSchema()
@@ -26,7 +27,8 @@ api.add_resource(UserById, "/users/<int:id>")
 api.add_resource(Posts, "/posts")
 api.add_resource(PostsByCommunityId, "/communities/<int:community_id>/posts")
 api.add_resource(PostById, "/communities/<int:community_id>/posts/<int:post_id>")
-
+api.add_resource(UserCommunities, "/usercommunities")
+api.add_resource(UserCommunitiesById, "/usercommunities/<int:id>")
 
 @app.route("/api/v1/profile", methods=["GET"])
 def profile():

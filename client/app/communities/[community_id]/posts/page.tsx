@@ -1,4 +1,6 @@
 import PostCollection from "@/components/PostCollection";
+import JoinButton from "@/components/communities/JoinButton";
+import { Box } from "@mui/material";
 
 const Posts = async ({ params }: { params: { community_id: string } }) => {
   const response = await fetch(
@@ -8,15 +10,18 @@ const Posts = async ({ params }: { params: { community_id: string } }) => {
   const dynamicData = await response.json();
 
   return (
-    <PostCollection
-      posts={dynamicData.post.map((post: any) => {
-        post["community"] = {
-          id: dynamicData.id,
-          name: dynamicData.name,
-        };
-        return post;
-      })}
-    />
+    <Box>
+      <PostCollection
+        posts={dynamicData.post.map((post: any) => {
+          post["community"] = {
+            id: dynamicData.id,
+            name: dynamicData.name,
+          };
+          return post;
+        })}
+      />
+      <JoinButton community_id={params.community_id} />
+    </Box>
   );
 };
 

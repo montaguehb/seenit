@@ -1,9 +1,10 @@
 "use client";
 import { UserContext } from "@/components/AuthProvider";
 import { Formik, Field, Form } from "formik";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import useSWRMutation from "swr/mutation";
 import { ValuesInterface } from "@/lib/types"
+import { useRouter } from "next/navigation";
 
 const sendRequest = async (url: string, { arg }: { arg: ValuesInterface }) => {
   const resp = await fetch(url, {
@@ -22,14 +23,18 @@ const Signup = () => {
     sendRequest
   );
   const { updateUser } = useContext(UserContext);
+  const router = useRouter()
 
-  if (data) {
-    updateUser(data);
-  }
+  useEffect(() => {
+    if(data) {
+      router.push("/")
+      updateUser(data.user)
+    }
+  }, [data])
 
   return (
     <div>
-      <h1>login</h1>
+      <h1>signup</h1>
       <Formik
         initialValues={{
           username: "",
