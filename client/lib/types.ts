@@ -30,3 +30,8 @@ export interface AuthInterface {
   email?: string | null;
   password: string;
 }
+
+export interface PostInterface {
+  title: string;
+  body: string;
+}

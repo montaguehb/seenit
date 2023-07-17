@@ -1,6 +1,6 @@
 import PostCollection from "@/components/PostCollection";
 import JoinButton from "@/components/communities/JoinButton";
-import { Box } from "@mui/material";
+import { Box, Button } from "@mui/material";
 
 const Posts = async ({ params }: { params: { community_id: string } }) => {
   const response = await fetch(
@@ -21,6 +21,7 @@ const Posts = async ({ params }: { params: { community_id: string } }) => {
         })}
       />
       <JoinButton community_id={params.community_id} />
+      <Button href={`/communities/${params.community_id}/posts/create`}>Create Post</Button>
     </Box>
   );
 };
