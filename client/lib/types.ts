@@ -1,6 +1,8 @@
 export type CommentType = {
   id: number;
   body: string;
+  parent_comment_id: number;
+  post_id: number;
   child_comment?: Array<CommentType>;
   created_at: string;
   dislikes: number;
