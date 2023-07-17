@@ -1,12 +1,14 @@
 "use client"
 import { UserContext } from "@/components/AuthProvider";
 import { Formik, Field, Form } from "formik";
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import useSWRMutation from "swr/mutation";
 import { AuthInterface } from "@/lib/types";
 import { useRouter } from "next/navigation";
 import Button from "@mui/material/Button"
 import Typography from "@mui/material/Typography"
+import ErrorSnackbar from "@/components/ErrorSnackbar";
+
 
 const sendRequest = async (url: string, { arg }: { arg: AuthInterface }) => {
   const resp = await fetch(url, {
@@ -19,11 +21,17 @@ const sendRequest = async (url: string, { arg }: { arg: AuthInterface }) => {
   if (resp.ok) {
     return await resp.json();
   }
+  else {
+    const error_message = await resp.json()
+    const error = new Error(error_message.error)
+    throw error
+  }
 };
 
 const Login = () => {
   const { trigger, data, isMutating, error } = useSWRMutation("/api/v1/login", sendRequest);
   const { updateUser } = useContext(UserContext)
+
   const router = useRouter()
   useEffect(() => {
     if(data) {
@@ -52,6 +60,7 @@ const Login = () => {
       </Formik>
       <Typography variant="body1">Already have an account?</Typography>
       <Button href="/signup">Signup</Button>
+      {error?<ErrorSnackbar error={error}/>:<></>}
     </div>
   );
 };
