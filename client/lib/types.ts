@@ -25,7 +25,7 @@ export type UserContextType = {
   updateUser: any;
 }
 
-export interface ValuesInterface {
+export interface AuthInterface {
   username: string;
   email?: string | null;
   password: string;

@@ -3,10 +3,10 @@ import { UserContext } from "@/components/AuthProvider";
 import { Formik, Field, Form } from "formik";
 import { useContext, useEffect } from "react";
 import useSWRMutation from "swr/mutation";
-import { ValuesInterface } from "@/lib/types"
+import { AuthInterface } from "@/lib/types"
 import { useRouter } from "next/navigation";
 
-const sendRequest = async (url: string, { arg }: { arg: ValuesInterface }) => {
+const sendRequest = async (url: string, { arg }: { arg: AuthInterface }) => {
   const resp = await fetch(url, {
     method: "POST",
     headers: {
@@ -41,7 +41,7 @@ const Signup = () => {
           email: "",
           password: "",
         }}
-        onSubmit={(values: ValuesInterface) => trigger(values)}
+        onSubmit={(values: AuthInterface) => trigger(values)}
       >
         <Form>
           <label htmlFor="username">username</label>

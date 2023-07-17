@@ -1,22 +1,32 @@
 "use client";
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { UserContext } from "./AuthProvider";
 import { CommunityType } from "@/lib/types";
 import CommunityCard from "./CommunityCard";
+import { Button } from "@mui/material";
 
 const Communities = () => {
   const { user } = useContext(UserContext);
-  if (user) {
-    const mappedCommunities = user.user_community.map(
-      ({community}: {community: CommunityType}) => {
-        return <CommunityCard key={community.id} community={community} />;
-      }
-    );
+  const [mappedCommunities, setMappedCommunities] = useState([]);
+  
+  useEffect(() => {
+    if (user) {
+      setMappedCommunities(
+        user.user_community.map(
+          ({ community }: { community: CommunityType }) => {
+            return <CommunityCard key={community.id} community={community} />;
+          }
+        )
+      );
+    }
+  }, [user]);
 
-    return <div>{ mappedCommunities }</div>;
-  } else {
-    return <></>;
-  }
+  return (
+    <>
+      {mappedCommunities}
+      <Button href="/create">Create</Button>
+    </>
+  );
 };
 
 export default Communities;
