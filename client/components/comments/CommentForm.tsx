@@ -1,12 +1,13 @@
 "use client";
 
 import { Typography, Button } from "@mui/material";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { UserContext } from "../AuthProvider";
 import { Form, Formik, Field } from "formik";
 import { getCookie } from "@/lib/getters";
 import useSWRMutation from "swr/mutation";
 import { CommentType } from "@/lib/types";
+import { useRouter } from "next/navigation";
 const sendRequest = async (
   url: string,
   {
@@ -33,12 +34,27 @@ const sendRequest = async (
   }
 };
 
-const CommentForm = ({ parent_comment }: { parent_comment: CommentType }) => {
+const CommentForm = ({
+  parent_comment,
+  updateReply,
+}: {
+  parent_comment: CommentType;
+  updateReply: any;
+}) => {
   const { user } = useContext(UserContext);
+  const router = useRouter();
   const { trigger, data, isMutating, error } = useSWRMutation(
     "/api/v1/comments",
     sendRequest
   );
+
+  useEffect(() => {
+    if (data) {
+      router.refresh();
+      updateReply();
+    }
+  }, [data]);
+
   return (
     <div>
       <Typography variant="h5">comment as {user?.username}</Typography>

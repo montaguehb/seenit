@@ -24,7 +24,7 @@ from blueprints.communities import Communities
 from blueprints.comments import Comments
 from schemas.user_schema import UserSchema
 
-user_schema = UserSchema(exclude=("user_post.post", "comment"))
+user_schema = UserSchema(exclude=("user_post.post", "comment", "post"))
 
 api.add_resource(Users, "/users")
 api.add_resource(UserById, "/users/<int:id>")
