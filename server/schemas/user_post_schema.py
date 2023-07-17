@@ -9,5 +9,5 @@ class UserPostSchema(ma.SQLAlchemyAutoSchema):
         include_fk = True
         load_instance = True
         
-    post = fields.Nested(PostSchema)
-    user = fields.Nested("UserSchema", only=("username",))
+    post = fields.Nested(PostSchema, exclude=("comment",))
+    user = fields.Nested("UserSchema", exclude=("user_post",))

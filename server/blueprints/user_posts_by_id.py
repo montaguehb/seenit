@@ -5,12 +5,12 @@ from schemas.user_post_schema import UserPostSchema
 from sqlalchemy import func
 
 user_post_by_id_bp = Blueprint('usercommunities', __name__, url_prefix='/usercommunities')
-user_post_schema = UserPostSchema()
+user_post_schema = UserPostSchema(exclude=("post", "user"))
 
 class UserPostById(Resource):
     def patch(self, id):
         if user_post := db.session.get(UserPost, id):
-            for key, value in request.get_json().items:
+            for key, value in request.get_json().items():
                 setattr(user_post, key, value)
             db.session.add(user_post)
             db.session.commit()
@@ -20,3 +20,4 @@ class UserPostById(Resource):
         if user_post := db.session.get(UserPost, id):
             db.session.delete(user_post)
             db.session.commit()
+            return make_response({"message": "succesfully delete"}, 200)

@@ -1,5 +1,5 @@
 "use client"
-const ReactButton = () => {
+const ReactButton = ({postId} : {postId: number}) => {
   return (
     <div>ReactButton</div>
   )

@@ -5,10 +5,10 @@ from schemas.user_post_schema import UserPostSchema
 from sqlalchemy import func
 
 user_post_bp = Blueprint('usercommunities', __name__, url_prefix='/usercommunities')
-user_post_schema = UserPostSchema()
 
 class UserPosts(Resource):
     def post(self):
+        user_post_schema = UserPostSchema(exclude=("post", "user"))
         new_user_post = UserPost(**request.get_json())
         db.session.add(new_user_post)
         db.session.commit()
