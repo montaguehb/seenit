@@ -6,7 +6,9 @@ from flask_jwt_extended import (
     set_access_cookies,
     set_refresh_cookies,
     jwt_required,
-    get_jwt_identity
+    get_jwt_identity,
+    unset_jwt_cookies,
+    unset_refresh_cookies
 )
 from config import app, db, api, jwt
 from models.user import User
@@ -87,6 +89,13 @@ def me():
         if user := db.session.get(User, id_):
             return make_response(user_schema.dump(user), 200)
     return make_response({"error": "Unauthorized"}, 403)
+
+@app.route("/api/v1/logout", methods=["DELETE"])
+def logout():
+    response = make_response({}, 204)
+    unset_jwt_cookies(response)
+    unset_refresh_cookies(response)
+    return response
 
 if __name__ == "__main__":
     app.run(port=5000, debug=True, use_debugger=False, use_reloader=False)
