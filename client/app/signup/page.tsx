@@ -17,7 +17,13 @@ const sendRequest = async (url: string, { arg }: { arg: AuthInterface }) => {
     },
     body: JSON.stringify(arg),
   });
-  return await resp.json();
+  if (resp.ok) {
+    return await resp.json();
+  } else {
+    const error_message = await resp.json();
+    const error = new Error(error_message.error);
+    throw error;
+  }
 };
 
 const Signup = () => {
@@ -36,10 +42,10 @@ const Signup = () => {
       .matches(/[A-Z]/, "Password must have an uppercase letter")
       .matches(/[a-z]/, "Password must have a lowercase letter")
       .matches(/[0-9]/, "Password must contain at least 1 number")
-      .matches(
-        /[^a-zA-Z0-9]/,
-        "Password must have at least one special character"
-      )
+      // .matches(
+      //   /[^a-zA-Z0-9]/,
+      //   "Password must have at least one special character"
+      // )
       .required("Please Enter a Password"),
     email: Yup.string().email().required("Please enter a valid email"),
   });
@@ -70,7 +76,6 @@ const Signup = () => {
         validationSchema={signUpSchema}
         onSubmit={(values: AuthInterface) => trigger(values)}
       >
-        {({ errors }) => (
           <Form>
             <label htmlFor="username">username</label>
             <Field id="username" name="username" placeholder="username" />
@@ -96,8 +101,8 @@ const Signup = () => {
             </ErrorMessage>
             <Button type="submit">Submit</Button>
           </Form>
-        )}
       </Formik>
+      {error?<ErrorSnackbar error={error.message} />:null}
     </div>
   );
 };

@@ -8,6 +8,7 @@ import { getCookie } from "@/lib/getters";
 import useSWRMutation from "swr/mutation";
 import { CommentType } from "@/lib/types";
 import { useRouter } from "next/navigation";
+import ErrorSnackbar from "../ErrorSnackbar";
 const sendRequest = async (
   url: string,
   {
@@ -31,6 +32,11 @@ const sendRequest = async (
   });
   if (resp.ok) {
     return await resp.json();
+  }
+  else {
+    const error_message = await resp.json();
+    const error = new Error(error_message.error);
+    throw error;
   }
 };
 
@@ -77,6 +83,7 @@ const CommentForm = ({
           <Button type="submit">Create</Button>
         </Form>
       </Formik>
+      {error?<ErrorSnackbar error={error.message}/>:<></>}
     </div>
   );
 };

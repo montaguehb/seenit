@@ -19,14 +19,17 @@ class PostsByCommunityId(Resource):
 
     @jwt_required()
     def post(self, community_id):
-        if id_ := get_jwt_identity():
-            new_post = Post(
-                **request.get_json(),
-                user_id=id_,
-                community_id=community_id,
-                likes=0,
-                dislikes=0,
-            )
-            db.session.add(new_post)
-            db.session.commit()
-            return make_response(post_schema.dump(new_post), 201)
+        try:
+            if id_ := get_jwt_identity():
+                new_post = post_schema.load(
+                    {**request.get_json(),
+                    "user_id":id_,
+                    "community_id":community_id,
+                    "likes":0,
+                    "dislikes":0,}
+                )
+                db.session.add(new_post)
+                db.session.commit()
+                return make_response(post_schema.dump(new_post), 201)
+        except Exception as e:
+            return make_response({"error": str(e)}, 400)

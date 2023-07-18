@@ -19,7 +19,7 @@ class PostSchema(ma.SQLAlchemyAutoSchema):
         
     body = fields.String(
         required=True,
-        validate=validate.Range(
+        validate=validate.Length(
             1, 500, error="Body must be between 1 and 500 characters"
         ),
     )
