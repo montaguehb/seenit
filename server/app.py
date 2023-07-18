@@ -11,6 +11,7 @@ from flask_jwt_extended import (
 from config import app, db, api, jwt
 from models.user import User
 
+from blueprints import IntegrityError
 from blueprints.users import Users
 from blueprints.user_by_id import UserById
 from blueprints.posts import Posts
@@ -52,7 +53,7 @@ def signup():
         user = user_schema.load(
             {"username": req["username"], "email": req["email"]}
         )
-        user.password_digest = req.get("password", "")
+        user.password_digest = req["password"]
         db.session.add(user)
         db.session.commit()
         token = create_access_token(identity=user.id)
@@ -61,6 +62,8 @@ def signup():
         set_access_cookies(response, token)
         set_refresh_cookies(response, refresh_token)
         return response
+    except IntegrityError:
+        return make_response({"error": "Username or email already exists"}, 400)
     except Exception as e:
         return make_response({"error": str(e)}, 400)
 
@@ -83,7 +86,7 @@ def me():
     if id_ := get_jwt_identity():
         if user := db.session.get(User, id_):
             return make_response(user_schema.dump(user), 200)
-    return make_response({"error": "Unauthorized"}, 401)
+    return make_response({"error": "Unauthorized"}, 403)
 
 if __name__ == "__main__":
     app.run(port=5000, debug=True, use_debugger=False, use_reloader=False)

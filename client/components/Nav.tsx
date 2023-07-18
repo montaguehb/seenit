@@ -13,9 +13,9 @@ const Nav = () => {
         <Container maxWidth="xl">
           <Toolbar disableGutters>
             <Typography variant="h4" noWrap component="a" href="/" sx={{flexGrow: 1}}>
-              LOGO
+              Seenit
             </Typography>
-            <Search />
+            {/* <Search /> */}
             <ProfileMenu />
           </Toolbar>
         </Container>
