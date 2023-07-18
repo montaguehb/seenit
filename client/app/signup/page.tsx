@@ -1,11 +1,14 @@
 "use client";
 import { UserContext } from "@/components/AuthProvider";
-import { Formik, Field, Form } from "formik";
+import { Formik, Field, Form, ErrorMessage, connect, getIn } from "formik";
 import { useContext, useEffect } from "react";
 import useSWRMutation from "swr/mutation";
-import { AuthInterface } from "@/lib/types"
+import { AuthInterface } from "@/lib/types";
 import { useRouter } from "next/navigation";
-import * as Yup from "yup" 
+import * as Yup from "yup";
+import ErrorSnackbar from "@/components/ErrorSnackbar";
+import { Button } from "@mui/material";
+
 const sendRequest = async (url: string, { arg }: { arg: AuthInterface }) => {
   const resp = await fetch(url, {
     method: "POST",
@@ -38,7 +41,7 @@ const Signup = () => {
         "Password must have at least one special character"
       )
       .required("Please Enter a Password"),
-    email: Yup.string().email().required("Please Enter your Email")
+    email: Yup.string().email().required("Please enter a valid email"),
   });
 
   const { trigger, data, isMutating, error } = useSWRMutation(
@@ -46,14 +49,14 @@ const Signup = () => {
     sendRequest
   );
   const { updateUser } = useContext(UserContext);
-  const router = useRouter()
+  const router = useRouter();
 
   useEffect(() => {
-    if(data) {
-      router.push("/")
-      updateUser(data.user)
+    if (data) {
+      router.push("/");
+      updateUser(data.user);
     }
-  }, [data])
+  }, [data]);
 
   return (
     <div>
@@ -67,20 +70,33 @@ const Signup = () => {
         validationSchema={signUpSchema}
         onSubmit={(values: AuthInterface) => trigger(values)}
       >
-        <Form>
-          <label htmlFor="username">username</label>
-          <Field id="username" name="username" placeholder="username" />
-          <label htmlFor="email">Email</label>
-          <Field id="email" name="email" placeholder="email" type="email" />
-          <label htmlFor="password">password</label>
-          <Field
-            id="password"
-            name="password"
-            placeholder="password"
-            type="password"
-          />
-          <button type="submit">Submit</button>
-        </Form>
+        {({ errors }) => (
+          <Form>
+            <label htmlFor="username">username</label>
+            <Field id="username" name="username" placeholder="username" />
+            <ErrorMessage name="username">
+              {(error: string) => <ErrorSnackbar error={error}></ErrorSnackbar>}
+            </ErrorMessage>
+
+            <label htmlFor="email">Email</label>
+            <Field id="email" name="email" placeholder="email" type="email" />
+            <ErrorMessage name="email">
+              {(error: string) => <ErrorSnackbar error={error}></ErrorSnackbar>}
+            </ErrorMessage>
+
+            <label htmlFor="password">password</label>
+            <Field
+              id="password"
+              name="password"
+              placeholder="password"
+              type="password"
+            />
+            <ErrorMessage name="password">
+              {(error: string) => <ErrorSnackbar error={error}></ErrorSnackbar>}
+            </ErrorMessage>
+            <Button type="submit">Submit</Button>
+          </Form>
+        )}
       </Formik>
     </div>
   );
