@@ -10,7 +10,7 @@ import MenuItem from "@mui/material/MenuItem";
 import { UserContext } from "./AuthProvider";
 import { Button } from "@mui/material";
 
-const settings = ["Profile", "Account", "Dashboard", "Logout"];
+const settings = ["profile", "logout"];
 
 const ProfileMenu = () => {
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
@@ -47,7 +47,9 @@ const ProfileMenu = () => {
       >
         {settings.map((setting) => (
           <MenuItem key={setting} onClick={handleCloseUserMenu}>
-            <Typography textAlign="center">{setting}</Typography>
+            <Button href={setting}>
+              <Typography textAlign="center">{setting}</Typography>
+            </Button>
           </MenuItem>
         ))}
       </Menu>
