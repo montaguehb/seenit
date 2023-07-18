@@ -1,5 +1,5 @@
 from blueprints import abort, make_response, g, request, Resource, Blueprint
-from flask_jwt_extended import jwt_required, get_jwt_identity
+from flask_jwt_extended import jwt_required, get_jwt_identity, unset_jwt_cookies, unset_refresh_cookies
 from models import db
 from schemas.user_schema import UserSchema
 from models.user import User
@@ -27,7 +27,9 @@ class UserById(Resource):
     def delete(self, id):
         if id == get_jwt_identity():
             user = db.session.get(User, id)
-            user.email = request.get_json()["email"]
-            db.session.add(user)
+            db.session.delete(user)
             db.session.commit()
-            return make_response(user_schema.load(user), 200)
+            response =  make_response({"message": "succesful deletion"}, 200)
+            unset_jwt_cookies(response)
+            unset_refresh_cookies(response)
+            return response

@@ -1,3 +1,4 @@
+import DeleteUser from "@/components/users/DeleteUser";
 import EmailForm from "@/components/users/EmailForm";
 import { Button } from "@mui/material";
 import Link from "next/link";
@@ -11,6 +12,7 @@ const Profile = async () => {
     <>
       <Button href="http://localhost:5000/api/v1/profile/1/posts">posts</Button>
       <EmailForm />
+      <DeleteUser />
     </>
   );
 };

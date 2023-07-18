@@ -11,10 +11,10 @@ class User(db.Model):
     _password_digest = db.Column(db.String)
     created_at = db.Column(db.DateTime, server_default=db.func.now())
 
-    post = db.relationship("Post", back_populates="user")
-    comment = db.relationship("Comment", back_populates="user")
-    user_community = db.relationship("UserCommunity", back_populates="user")
-    user_post = db.relationship("UserPost", back_populates="user")
+    post = db.relationship("Post", back_populates="user", cascade="all, delete")
+    comment = db.relationship("Comment", back_populates="user", cascade="all, delete")
+    user_community = db.relationship("UserCommunity", back_populates="user", cascade="all, delete")
+    user_post = db.relationship("UserPost", back_populates="user", cascade="all, delete")
 
     @hybrid_property
     def password_digest(self):
