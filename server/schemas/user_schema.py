@@ -6,21 +6,13 @@ from schemas.user_community_schema import UserCommunitySchema
 import re
 
 
-class UserSchema(ma.SQLAlchemySchema):
+class UserSchema(ma.SQLAlchemyAutoSchema):
     class Meta:
         model = User
+        include_relationships = True
         load_instance = True
-        fields = (
-            "id",
-            "username",
-            "role",
-            "created_at",
-            "comment",
-            "user_community",
-            "user_post",
-            "post",
-            "email"
-        )
+        include_fk = True
+    
     
     post = fields.Nested("PostSchema", exclude=("user", "comment",), many=True, dump_default=[])
     comment = fields.Nested(

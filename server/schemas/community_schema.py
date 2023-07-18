@@ -9,4 +9,5 @@ class CommunitySchema(ma.SQLAlchemyAutoSchema):
         include_relationships = True
         load_instance = True
     
+    name = fields.String(validate=validate.Range(1, 20, error="Name must be between 1 and 20 characters"))
     post=fields.Nested("PostSchema", exclude=("community",), many=True, dump_default=[])
