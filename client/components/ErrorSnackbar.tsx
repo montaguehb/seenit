@@ -7,7 +7,7 @@ const ErrorSnackbar = ({error}: {error: any}) => {
 
   return (
     <Snackbar open={open} autoHideDuration={2000} onClose={() => setOpen(false)}>
-        <Alert severity="error">{error.message}</Alert>
+        <Alert severity="error">{error}</Alert>
     </Snackbar>
   )
 }
