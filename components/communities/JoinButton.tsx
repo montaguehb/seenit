@@ -43,8 +43,8 @@ const JoinButton = ({ community_id }: { community_id: string }) => {
       : null;
   const { trigger, data, isMutating, error } = useSWRMutation(
     joined
-      ? `/api/v1/usercommunities/${userCommunityId}`
-      : "/api/v1/usercommunities",
+      ? `/api/usercommunities/${userCommunityId}`
+      : "/api/usercommunities",
     sendRequest
   );
 

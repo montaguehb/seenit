@@ -47,8 +47,8 @@ const SaveButton = ({postId} : {postId: number}) => {
   const [saved, setSaved] = useState(userPost?.saved)
   const { trigger, data, isMutating, error } = useSWRMutation(
     userPost
-      ? `/api/v1/userposts/${userPost.id}`
-      : "/api/v1/userposts",
+      ? `/api/userposts/${userPost.id}`
+      : "/api/userposts",
     sendRequest
   );
 

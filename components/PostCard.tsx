@@ -4,7 +4,7 @@ import SaveButton from "./posts/SaveButton";
 import ReactButton from "./posts/ReactButton";
 
 const PostCard = ({ post }: ComponentProps<any>) => {
-  let timeDif = (Date.now() - Date.parse(`${post.created_at} GMT`)) / 1000;
+  let timeDif = (Date.now() - Date.parse(post.created_at)) / 1000;
   timeDif = Math.floor(timeDif / 3600);
   return (
     <Card>

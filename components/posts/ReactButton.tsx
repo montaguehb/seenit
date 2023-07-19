@@ -43,7 +43,7 @@ const ReactButton = ({ postId }: { postId: number }) => {
       : 0;
   const [liked, setLiked] = useState(userPost?.liked);
   const { trigger, data, isMutating, error } = useSWRMutation(
-    userPost ? `/api/v1/userposts/${userPost.id}` : "/api/v1/userposts",
+    userPost ? `/api/userposts/${userPost.id}` : "/api/userposts",
     sendRequest
   );
 
