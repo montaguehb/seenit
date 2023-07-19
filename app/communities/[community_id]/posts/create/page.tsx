@@ -67,18 +67,13 @@ const Page = ({ params }: { params: { community_id: number } }) => {
         <Form>
           <label htmlFor="title">title</label>
           <Field id="title" name="title" placeholder="title" />
-          <ErrorMessage name="title">
-            {(error: string) => <ErrorSnackbar error={error}></ErrorSnackbar>}
-          </ErrorMessage>
+
           <label htmlFor="body">body</label>
           <Field id="body" name="body" placeholder="body" />
-          <ErrorMessage name="body">
-            {(error: string) => <ErrorSnackbar error={error}></ErrorSnackbar>}
-          </ErrorMessage>
+
           <Button type="submit">Create</Button>
         </Form>
       </Formik>
-      {error ? <ErrorSnackbar error={error.message} /> : null}
     </div>
   );
 };

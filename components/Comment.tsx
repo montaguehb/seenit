@@ -7,11 +7,16 @@ const Comment = ({ comment }: { comment: CommentType }) => {
   const mappedComment = (comments: Array<CommentType>) =>
     comments.map((comment) => <Comment key={comment.id} comment={comment} />);
   return (
-    <Container>
-      <Typography variant="body1">{comment.body}</Typography>
-      <ReplyButton parent_comment={{id: comment.id, post_id: comment.post_id}}/>
-      {comment.child_comment ? mappedComment(comment.child_comment) : <></>}
-    </Container>
+    <>
+      <br />
+      <Container>
+        <Typography variant="body1">{comment.body}</Typography>
+        <ReplyButton
+          parent_comment={{ id: comment.id, post_id: comment.post_id }}
+        />
+        {comment.child_comment ? mappedComment(comment.child_comment) : <></>}
+      </Container>
+    </>
   );
 };
 
