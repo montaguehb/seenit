@@ -50,7 +50,7 @@ const CommentForm = ({
   const { user } = useContext(UserContext);
   const router = useRouter();
   const { trigger, data, isMutating, error } = useSWRMutation(
-    "/api/v1/comments",
+    "/api/comments",
     sendRequest
   );
 

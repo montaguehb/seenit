@@ -4,7 +4,6 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-faker = "14.2.0"
 flask = "*"
 flask-migrate = "*"
 flask-sqlalchemy = "*"
@@ -22,5 +21,8 @@ python-dotenv = "*"
 gunicorn = "*"
 psycopg2-binary = "*"
 
+[dev-packages]
+faker = "14.2.0"
+
 [requires]
-python_full_version = "3.8.13"
+python_version = "3.9"

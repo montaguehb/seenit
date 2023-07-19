@@ -41,7 +41,7 @@ const Login = () => {
   });
 
   const { trigger, data, isMutating, error } = useSWRMutation(
-    "/api/v1/login",
+    "/api/login",
     sendRequest
   );
   const { updateUser } = useContext(UserContext);

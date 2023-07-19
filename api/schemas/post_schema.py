@@ -23,7 +23,7 @@ class PostSchema(ma.SQLAlchemyAutoSchema):
             1, 500, error="Body must be between 1 and 500 characters"
         ),
     )
-    created_at = fields.DateTime('%Y-%m-%d %H:%M:%S GMT')    
+    created_at = fields.DateTime('%Y-%m-%d %H:%M:%S')    
     user = fields.Nested(UserSchema, exclude=("post", "comment", "user_community", "user_post"))
     comment = fields.Nested(CommentSchema, exclude=("post", "user"), many=True, dump_default=[])
     community = fields.Nested(CommunitySchema, exclude=("post",))

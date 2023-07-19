@@ -29,7 +29,7 @@ const sendRequest = async (url: string, { arg }: { arg: { name: string } }) => {
 
 const Create = () => {
   const { trigger, data, isMutating, error } = useSWRMutation(
-    "/api/v1/communities",
+    "/api/communities",
     sendRequest
   );
   const {user, updateUser} = useContext(UserContext)
