@@ -73,7 +73,7 @@ def comment():
         post = choice(Post.query.all())
         comments=Comment.query.filter_by(post_id=post.id).all()
         comment_id=[comment.id for comment in comments] if comments else []
-        comment_id.append(0)
+        comment_id.append(None)
         parent_comment=choice(comment_id)
         new_comment = Comment(
             likes=randint(1, 1000),

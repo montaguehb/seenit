@@ -18,14 +18,14 @@ app = Flask(__name__)
 # logging.basicConfig()
 # logging.getLogger("sqlalchemy.engine").setLevel(logging.INFO)
 
-app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get("POSTGRES_URL")
+app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///app.db"
 
 app.secret_key = os.environ.get("SECRET_KEY", "dev")
 app.config["JWT_SECRET_KEY"] = os.environ.get("JWT_SECRET_KEY", "dev")
 app.config["JWT_TOKEN_LOCATION"] = ["headers", "cookies"]
 app.config["JWT_ACCESS_TOKEN_EXPIRES"] = timedelta(hours=1)
 # app.config["JWT_COOKIE_SECURE"] = False
-app.config["JWT_COOKIE_DOMAIN"] = "localhost:3000"
+# app.config["JWT_COOKIE_DOMAIN"] = "localhost:3000"
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 app.json.compact = False
 

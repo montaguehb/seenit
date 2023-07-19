@@ -1,21 +1,22 @@
+"use client"
 import PostCollection from "@/components/PostCollection";
+import useSWR from "swr"
 
-const getData = async (params: any) => {
+const fetcher = async (url: string) => {
   const resp = await fetch(
-    `http://localhost:5000/api/users/${params.user_id}/posts`,
-    { cache: "no-store" }
+    url
   );
   if (resp.ok) {
     return resp.json();
   }
 };
 
-export default async function Home({
+export default function Home({
   params,
 }: {
   params: { user_id: string };
 }) {
-  const data = await getData(params);
+  const {data} = useSWR(`/api/users/${params.user_id}/posts`, fetcher);
 
   return <>{params.user_id ? <PostCollection posts={data} /> : null}</>;
 }
