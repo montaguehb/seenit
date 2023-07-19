@@ -15,7 +15,7 @@ const Nav = () => {
             <Typography variant="h4" noWrap component="a" href="/" sx={{flexGrow: 1}}>
               Seenit
             </Typography>
-            {/* <Search /> */}
+            <Search />
             <ProfileMenu />
           </Toolbar>
         </Container>

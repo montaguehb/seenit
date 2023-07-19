@@ -10,10 +10,10 @@ const ReplyButton = ({ parent_comment }: { parent_comment: {id: number; post_id:
     setReply(!reply)
   }
   return (
-    <div>
-      {reply ? <CommentForm parent_comment={parent_comment} updateReply={updateReply}/> : <></>}
+    <>
+      {reply ? <CommentForm parent_comment={parent_comment} updateReply={updateReply}/> : null}
       <Button onClick={()=> setReply(!reply)}>{reply?"cancel":"reply"}</Button>
-    </div>
+    </>
   );
 };
 

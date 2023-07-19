@@ -3,12 +3,14 @@
 import { Typography, Button } from "@mui/material";
 import { useContext, useEffect } from "react";
 import { UserContext } from "../AuthProvider";
-import { Form, Formik, Field } from "formik";
+import { Form, Formik, useFormik, Field } from "formik";
 import { getCookie } from "@/lib/getters";
 import useSWRMutation from "swr/mutation";
 import { CommentType } from "@/lib/types";
 import { useRouter } from "next/navigation";
 import ErrorSnackbar from "../ErrorSnackbar";
+import * as Yup from "yup"
+
 const sendRequest = async (
   url: string,
   {
@@ -53,6 +55,18 @@ const CommentForm = ({
     "/api/comments",
     sendRequest
   );
+
+  // const WithMaterialUI = () => {
+  //   const formik = useFormik({
+  //     initialValues: {
+  //       email: 'foobar@example.com',
+  //       password: 'foobar',
+  //     },
+  //     validationSchema: commentSchema,
+  //     onSubmit: (values) => {
+  //       alert(JSON.stringify(values, null, 2));
+  //     },
+  //   });
 
   useEffect(() => {
     if (data) {
