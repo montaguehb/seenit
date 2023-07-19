@@ -5,6 +5,7 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import ProfileMenu from "./ProfileMenu";
 import { Box } from "@mui/material";
+import Sidebar from "./Sidebar";
 
 const Nav = () => {
   return (
@@ -12,9 +13,7 @@ const Nav = () => {
       <AppBar position="static" color="primary">
         <Container maxWidth="xl">
           <Toolbar disableGutters>
-            <Typography variant="h4" noWrap component="a" href="/" sx={{flexGrow: 1}}>
-              Seenit
-            </Typography>
+            <Sidebar />
             <Search />
             <ProfileMenu />
           </Toolbar>

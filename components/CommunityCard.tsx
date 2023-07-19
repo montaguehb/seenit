@@ -1,12 +1,12 @@
 import { CommunityType } from "@/lib/types";
-import Link from "next/link";
+import { ListItem, Link } from "@mui/material";
 
 const CommunityCard = ({ community }: { community: CommunityType }) => {
   
   return (
-    <div>
-      <Link href={`/communities/${community.id}/posts`}>{community.name}</Link>
-    </div>
+    <ListItem>
+      <Link href={`/communities/${community.id}/posts`} underline="none">{community.name}</Link>
+    </ListItem>
   );
 };
 
