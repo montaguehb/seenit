@@ -41,13 +41,13 @@ api.add_resource(UserPosts, "/userposts")
 api.add_resource(UserPostById, "/userposts/<int:id>")
 api.add_resource(Communities, "/communities")
 
-@app.route("/api/v1/profile", methods=["GET"])
+@app.route("/api/profile", methods=["GET"])
 def profile():
     if user := db.session.get(User, id):
         return make_response(user.to_dict(), 200)
 
 
-@app.route("/api/v1/signup", methods=["POST"])
+@app.route("/api/signup", methods=["POST"])
 def signup():
     
     req = request.get_json()
@@ -69,7 +69,7 @@ def signup():
     except Exception as e:
         return make_response({"error": str(e)}, 400)
 
-@app.route("/api/v1/login", methods=["POST"])
+@app.route("/api/login", methods=["POST"])
 def signin():
     user_info = request.get_json()
     if user := User.query.filter_by(username=user_info.get("username", "")).first():
@@ -82,7 +82,7 @@ def signin():
             return response
     return make_response({"error": "Invalid credentials"}, 401)
 
-@app.route("/api/v1/me", methods=["GET"])
+@app.route("/api/me", methods=["GET"])
 @jwt_required()
 def me():
     if id_ := get_jwt_identity():
@@ -90,7 +90,7 @@ def me():
             return make_response(user_schema.dump(user), 200)
     return make_response({"error": "Unauthorized"}, 403)
 
-@app.route("/api/v1/logout", methods=["DELETE"])
+@app.route("/api/logout", methods=["DELETE"])
 def logout():
     response = make_response({}, 204)
     unset_jwt_cookies(response)

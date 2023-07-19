@@ -51,7 +51,7 @@ const Signup = () => {
   });
 
   const { trigger, data, isMutating, error } = useSWRMutation(
-    "/api/v1/signup",
+    "/api/signup",
     sendRequest
   );
   const { updateUser } = useContext(UserContext);

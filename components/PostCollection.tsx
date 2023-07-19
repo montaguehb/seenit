@@ -6,7 +6,7 @@ import { PostProps } from "@/lib/types";
 const PostCollection = ({ posts }: { posts: Array<PostProps> }) => {
   const mappedPosts = posts.map((post) => {
     return (
-        <PostCard  post={post} />
+        <PostCard  key={post.id} post={post} />
     );
   });
 

@@ -4,7 +4,7 @@ import { Box, Button } from "@mui/material";
 
 const Posts = async ({ params }: { params: { community_id: string } }) => {
   const response = await fetch(
-    `http://localhost:5000/api/v1/communities/${params.community_id}/posts`,
+    `/api/v1/communities/${params.community_id}/posts`,
     { cache: "no-store" }
   );
   const dynamicData = await response.json();

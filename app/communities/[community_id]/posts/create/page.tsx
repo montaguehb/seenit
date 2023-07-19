@@ -10,6 +10,7 @@ import Typography from "@mui/material/Typography";
 import { getCookie } from "@/lib/getters";
 import * as Yup from "yup";
 import ErrorSnackbar from "@/components/ErrorSnackbar";
+
 const sendRequest = async (url: string, { arg }: { arg: PostInterface }) => {
   const resp = await fetch(url, {
     method: "POST",
@@ -29,7 +30,7 @@ const sendRequest = async (url: string, { arg }: { arg: PostInterface }) => {
   }
 };
 
-const page = ({ params }: { params: { community_id: number } }) => {
+const Page = ({ params }: { params: { community_id: number } }) => {
   const postSchema = Yup.object().shape({
     title: Yup.string()
       .min(1, "Title must be between 1 and 50 characters")
@@ -43,7 +44,7 @@ const page = ({ params }: { params: { community_id: number } }) => {
 
   const router = useRouter();
   const { trigger, data, isMutating, error } = useSWRMutation(
-    `/api/v1/communities/${params.community_id}/posts`,
+    `/api/communities/${params.community_id}/posts`,
     sendRequest
   );
 
@@ -81,4 +82,4 @@ const page = ({ params }: { params: { community_id: number } }) => {
   );
 };
 
-export default page;
+export default Page;

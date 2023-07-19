@@ -6,7 +6,7 @@ const Post = async ({
   params: { community_id: string; post_id: string };
 }) => {
   const response = await fetch(
-    `http://localhost:5000/api/v1/communities/${params.community_id}/posts/${params.post_id}`,
+    `/api/communities/${params.community_id}/posts/${params.post_id}`,
     { cache: 'no-store' }
   );
   const data: {body: string; comment: Array<CommentType>} = await response.json();

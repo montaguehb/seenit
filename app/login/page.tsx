@@ -84,7 +84,7 @@ const Login = () => {
           <Button type="submit">Submit</Button>
         </Form>
       </Formik>
-      <Typography variant="body1">Don't have an account?</Typography>
+      <Typography variant="body1">Don&apos;t have an account?</Typography>
       <Button href="/signup">Signup</Button>
       {error?<ErrorSnackbar error={error.message}/>:<></>}
     </div>
