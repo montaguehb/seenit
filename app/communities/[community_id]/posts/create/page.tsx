@@ -49,6 +49,7 @@ const Page = ({ params }: { params: { community_id: number } }) => {
   );
 
   if (data) {
+    debugger
     router.push(`/communities/${params.community_id}/posts/${data.id}`);
   }
   return (
