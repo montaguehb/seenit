@@ -1,8 +1,14 @@
 import PostCollection from "@/components/PostCollection";
 
-export default async function Home() {
+const getData = async () => {
   const resp = await fetch("http://localhost:5000/api/posts", { cache: 'no-store' })
-  const data = await resp.json()
+  if (resp.ok) {
+    return resp.json()
+  }
+}
+export default async function Home() {
+ 
+  const data = await getData()
 
   return (
     <main>

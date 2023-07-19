@@ -47,6 +47,6 @@ CORS(app)
 
 bcrypt = Bcrypt(app)
 
-api = Api(app)
+api = Api(app, prefix="/api")
 
 jwt = JWTManager(app)

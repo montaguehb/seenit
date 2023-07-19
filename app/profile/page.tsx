@@ -3,14 +3,19 @@ import EmailForm from "@/components/users/EmailForm";
 import { Button } from "@mui/material";
 import Link from "next/link";
 
-const Profile = async () => {
-  const response = await fetch(`/api/users/1`, {
-    cache: "no-store",
-  });
-  const data = await response.json();
+const getData = async (params: any) => {
+  const resp = await fetch(`http://localhost:5000/api/users/${params.user_id}`, { cache: 'no-store' })
+  if (resp.ok) {
+    return resp.json()
+  }
+}
+
+const Profile = async ({ params }: { params: { user_id: string } }) => {
+  const data = await getData(params);
+
   return (
     <>
-      <Button href="/api/profile/1/posts">posts</Button>
+      <Button href={`/api/profile/${params.user_id}/posts`}>posts</Button>
       <EmailForm />
       <DeleteUser />
     </>

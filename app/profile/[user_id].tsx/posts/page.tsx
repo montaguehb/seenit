@@ -1,10 +1,21 @@
 import PostCollection from "@/components/PostCollection";
 
-export default async function Home({ params }: { params: { user_id: string } }) {
-  const resp = await fetch(`/api/users/${params.user_id}/posts`, { cache: 'no-store' })
-  const data = await resp.json()
-
-  return (
-    <PostCollection posts={data} />
+const getData = async (params: any) => {
+  const resp = await fetch(
+    `http://localhost:5000/api/users/${params.user_id}/posts`,
+    { cache: "no-store" }
   );
+  if (resp.ok) {
+    return resp.json();
+  }
+};
+
+export default async function Home({
+  params,
+}: {
+  params: { user_id: string };
+}) {
+  const data = await getData(params);
+
+  return <>{params.user_id ? <PostCollection posts={data} /> : null}</>;
 }
