@@ -6,13 +6,10 @@ import useSWRMutation from "swr/mutation";
 import { AuthInterface } from "@/lib/types";
 import { useRouter } from "next/navigation";
 import * as Yup from "yup";
-import ErrorSnackbar from "@/components/ErrorSnackbar";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Checkbox from "@mui/material/Checkbox";
 import Link from "@mui/material/Link";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
@@ -118,6 +115,10 @@ const Signup = () => {
             label="Username"
             name="username"
             autoComplete="username"
+            value={formik.values.username}
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            error={formik.touched.username && Boolean(formik.errors.username)}
             autoFocus
           />
           <TextField
@@ -128,6 +129,10 @@ const Signup = () => {
             label="Email Address"
             name="email"
             autoComplete="email"
+            value={formik.values.email}
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            error={formik.touched.email && Boolean(formik.errors.email)}
             autoFocus
           />
           <TextField
@@ -138,6 +143,10 @@ const Signup = () => {
             label="Password"
             type="password"
             id="password"
+            value={formik.values.password}
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            error={formik.touched.password && Boolean(formik.errors.password)}
             autoComplete="current-password"
           />
           <Button
@@ -150,7 +159,7 @@ const Signup = () => {
           </Button>
           <Grid container>
             <Grid item>
-              <Link href="/signin" variant="body2">
+              <Link href="/login" variant="body2">
                 {"Already have an account?"}
               </Link>
             </Grid>
