@@ -40,6 +40,10 @@ api.add_resource(UserPosts, "/userposts")
 api.add_resource(UserPostById, "/userposts/<int:id>")
 api.add_resource(Communities, "/communities")
 
+@app.route("/api/python")
+def hello_world():
+    return "<p>Hello, World!</p>"
+    
 @app.route("/api/profile", methods=["GET"])
 def profile():
     if user := db.session.get(User, id):
