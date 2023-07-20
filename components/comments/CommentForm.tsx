@@ -102,6 +102,10 @@ const CommentForm = ({
           id="body"
           name="body"
           label="comment"
+          value={formik.values.body}
+          onChange={formik.handleChange}
+          onBlur={formik.handleBlur}
+          error={formik.touched.body && Boolean(formik.errors.body)}
           placeholder="comment..."
         />
         <Button type="submit">Create</Button>

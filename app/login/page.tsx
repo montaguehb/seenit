@@ -1,14 +1,21 @@
 "use client";
 import { UserContext } from "@/components/AuthProvider";
-import { Formik, Field, Form, ErrorMessage } from "formik";
+import { useFormik } from "formik";
 import { useContext, useEffect } from "react";
 import useSWRMutation from "swr/mutation";
 import { AuthInterface } from "@/lib/types";
 import { useRouter } from "next/navigation";
-import Button from "@mui/material/Button";
-import Typography from "@mui/material/Typography";
-import ErrorSnackbar from "@/components/ErrorSnackbar";
 import * as Yup from "yup";
+import Avatar from "@mui/material/Avatar";
+import Button from "@mui/material/Button";
+import CssBaseline from "@mui/material/CssBaseline";
+import TextField from "@mui/material/TextField";
+import Box from "@mui/material/Box";
+import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
+import Typography from "@mui/material/Typography";
+import Container from "@mui/material/Container";
+import { Grid, Link } from "@mui/material";
+import { ErrorContext } from "@/components/providers/ErrorProvider";
 
 const sendRequest = async (url: string, { arg }: { arg: AuthInterface }) => {
   const resp = await fetch(url, {
@@ -23,7 +30,7 @@ const sendRequest = async (url: string, { arg }: { arg: AuthInterface }) => {
   } else {
     const error_message = await resp.json();
     const error = new Error(error_message.error);
-    throw error;
+    throw error
   }
 };
 
@@ -39,6 +46,17 @@ const Login = () => {
       .required("Please enter a username between 2 and 20 characters"),
     password: Yup.string().required("Please enter a password"),
   });
+  const { contextError, updateError} = useContext(ErrorContext);
+  const formik = useFormik({
+    initialValues: {
+      username: "",
+      password: "",
+    },
+    validationSchema: loginSchema,
+    onSubmit: (values) => {
+      trigger(values);
+    },
+  });
 
   const { trigger, data, isMutating, error } = useSWRMutation(
     "/api/login",
@@ -51,43 +69,76 @@ const Login = () => {
     if (data) {
       router.push("/");
       updateUser(data.user);
+    } else if (error) {
+      updateError(error.message);
+    } else if (formik.errors && formik.errors.username !== contextError) {
+      updateError(formik.errors.username);
     }
   }, [data]);
-
   return (
-    <div>
-      <h1>login</h1>
-      <Formik
-        initialValues={{
-          username: "",
-          password: "",
+    <Container component="main" maxWidth="xs">
+      <CssBaseline />
+      <Box
+        sx={{
+          marginTop: 8,
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
         }}
-        validationSchema={loginSchema}
-        onSubmit={(values: AuthInterface) => trigger(values)}
       >
-        <Form>
-          <label htmlFor="username">username</label>
-          <Field id="username" name="username" placeholder="username" />
-          <ErrorMessage name="username">
-            {(error: string) => <ErrorSnackbar error={error}></ErrorSnackbar>}
-          </ErrorMessage>
-          <label htmlFor="password">password</label>
-          <Field
-            id="password"
-            name="password"
-            placeholder="password"
-            type="password"
+        <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
+          <LockOutlinedIcon />
+        </Avatar>
+        <Typography component="h1" variant="h5">
+          Sign in
+        </Typography>
+        <Box component="form" onSubmit={formik.handleSubmit} sx={{ mt: 1 }}>
+          <TextField
+            margin="normal"
+            required
+            fullWidth
+            id="username"
+            label="Username"
+            name="username"
+            value={formik.values.username}
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            error={formik.touched.username && Boolean(formik.errors.username)}
+            autoComplete="username"
+            autoFocus
           />
-          <ErrorMessage name="password">
-            {(error: string) => <ErrorSnackbar error={error}></ErrorSnackbar>}
-          </ErrorMessage>
-          <Button type="submit">Submit</Button>
-        </Form>
-      </Formik>
-      <Typography variant="body1">Don&apos;t have an account?</Typography>
-      <Button href="/signup">Signup</Button>
-      {error?<ErrorSnackbar error={error.message}/>:<></>}
-    </div>
+          <TextField
+            margin="normal"
+            required
+            fullWidth
+            name="password"
+            label="Password"
+            type="password"
+            id="password"
+            value={formik.values.password}
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            error={formik.touched.password && Boolean(formik.errors.password)}
+            autoComplete="current-password"
+          />
+          <Button
+            type="submit"
+            fullWidth
+            variant="contained"
+            sx={{ mt: 3, mb: 2 }}
+          >
+            Sign In
+          </Button>
+          <Grid container>
+            <Grid item>
+              <Link href="/signup" variant="body2">
+                {"Don't have an account? Sign Up"}
+              </Link>
+            </Grid>
+          </Grid>
+        </Box>
+      </Box>
+    </Container>
   );
 };
 

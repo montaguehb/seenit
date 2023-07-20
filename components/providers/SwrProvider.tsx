@@ -4,13 +4,7 @@ import ErrorSnackbar from "../ErrorSnackbar";
 
 const SwrProvider = ({ children }: { children: React.ReactNode }) => {
   return (
-    <SWRConfig
-      value={{
-        onError: (error, key) => {
-          return <ErrorSnackbar error={error} />;
-        },
-      }}
-    >
+    <SWRConfig>
       {children}
     </SWRConfig>
   );

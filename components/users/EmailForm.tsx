@@ -62,7 +62,6 @@ const EmailForm = () => {
         </Formik>
         <Typography variant="body1">Already have an account?</Typography>
         <Button href="/signup">Signup</Button>
-        {error ? <ErrorSnackbar error={error} /> : <></>}
       </div>
     );
   } else {

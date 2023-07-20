@@ -1,11 +1,11 @@
 "use client";
 import { Button } from "@mui/material";
-import ErrorSnackbar from "../ErrorSnackbar";
 import { getCookie } from "@/lib/getters";
 import useSWRMutation from "swr/mutation";
 import { useContext, useEffect } from "react";
 import { UserContext } from "../AuthProvider";
 import { useRouter } from "next/navigation";
+import { ErrorContext } from "../providers/ErrorProvider";
 
 const sendRequest = async (url: string) => {
   const resp = await fetch(url, {
@@ -27,6 +27,7 @@ const sendRequest = async (url: string) => {
 const DeleteUser = () => {
   const { user, updateUser } = useContext(UserContext);
   const router = useRouter();
+  const {contextError, updateError} = useContext(ErrorContext)
   const { trigger, data, isMutating, error } = useSWRMutation(
     `/api/users/${user?.id}`,
     sendRequest
@@ -37,12 +38,14 @@ const DeleteUser = () => {
         router.push("/");
         updateUser(null);
     }
-  }, [data]);
+    else if (error && error !== contextError ) {
+      updateError(error)
+    }
+  }, [data, error]);
 
   return (
     <>
       <Button onClick={() => trigger()}>Delete User</Button>
-      {error ? <ErrorSnackbar error={error} /> : <></>}
     </>
   );
 };
