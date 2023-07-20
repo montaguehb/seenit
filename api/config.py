@@ -13,27 +13,27 @@ from schemas import ma
 
 import os
 
-# app = Flask(
-#     __name__,
-#     static_url_path='',
-#     static_folder='../.next/static',
-#     template_folder='../client/build'
-# )
+app = Flask(
+    __name__,
+    static_url_path='',
+    static_folder='../.next/static',
+    template_folder='../client/build'
+)
 
 
-# # logging.basicConfig()
-# # logging.getLogger("sqlalchemy.engine").setLevel(logging.INFO)
+# logging.basicConfig()
+# logging.getLogger("sqlalchemy.engine").setLevel(logging.INFO)
 
-# app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get("POSTGRES_URL")
+app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get("POSTGRES_URL")
 
-# app.secret_key = os.environ.get("SECRET_KEY", "dev")
-# app.config["JWT_SECRET_KEY"] = os.environ.get("JWT_SECRET_KEY", "dev")
-# app.config["JWT_TOKEN_LOCATION"] = ["headers", "cookies"]
-# app.config["JWT_ACCESS_TOKEN_EXPIRES"] = timedelta(hours=1)
-# # app.config["JWT_COOKIE_SECURE"] = False
-# # app.config["JWT_COOKIE_DOMAIN"] = "localhost:3000"
-# app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
-# app.json.compact = False
+app.secret_key = os.environ.get("SECRET_KEY", "dev")
+app.config["JWT_SECRET_KEY"] = os.environ.get("JWT_SECRET_KEY", "dev")
+app.config["JWT_TOKEN_LOCATION"] = ["headers", "cookies"]
+app.config["JWT_ACCESS_TOKEN_EXPIRES"] = timedelta(hours=1)
+# app.config["JWT_COOKIE_SECURE"] = False
+# app.config["JWT_COOKIE_DOMAIN"] = "localhost:3000"
+app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
+app.json.compact = False
 
 metadata = MetaData(
     naming_convention={
@@ -46,13 +46,13 @@ metadata = MetaData(
 )
 
 db = SQLAlchemy(metadata=metadata)
-# migrate = Migrate(app, db, render_as_batch=True)
-# db.init_app(app)
+migrate = Migrate(app, db, render_as_batch=True)
+db.init_app(app)
 
-# CORS(app)
+CORS(app)
 
-# bcrypt = Bcrypt(app)
+bcrypt = Bcrypt(app)
 
-# api = Api(app, prefix="/api")
+api = Api(app, prefix="/api")
 
-# jwt = JWTManager(app)
+jwt = JWTManager(app)
