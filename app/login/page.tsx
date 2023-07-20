@@ -14,6 +14,8 @@ import Box from "@mui/material/Box";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
+import { Grid, Link } from "@mui/material";
+import { ErrorContext } from "@/components/providers/ErrorProvider";
 
 const sendRequest = async (url: string, { arg }: { arg: AuthInterface }) => {
   const resp = await fetch(url, {
@@ -28,7 +30,7 @@ const sendRequest = async (url: string, { arg }: { arg: AuthInterface }) => {
   } else {
     const error_message = await resp.json();
     const error = new Error(error_message.error);
-    throw error;
+    throw error
   }
 };
 
@@ -44,7 +46,7 @@ const Login = () => {
       .required("Please enter a username between 2 and 20 characters"),
     password: Yup.string().required("Please enter a password"),
   });
-
+  const { contextError, updateError} = useContext(ErrorContext);
   const formik = useFormik({
     initialValues: {
       username: "",
@@ -67,6 +69,10 @@ const Login = () => {
     if (data) {
       router.push("/");
       updateUser(data.user);
+    } else if (error) {
+      updateError(error.message);
+    } else if (formik.errors && formik.errors.username !== contextError) {
+      updateError(formik.errors.username);
     }
   }, [data]);
   return (
@@ -86,12 +92,7 @@ const Login = () => {
         <Typography component="h1" variant="h5">
           Sign in
         </Typography>
-        <Box
-          component="form"
-          onSubmit={formik.handleSubmit}
-
-          sx={{ mt: 1 }}
-        >
+        <Box component="form" onSubmit={formik.handleSubmit} sx={{ mt: 1 }}>
           <TextField
             margin="normal"
             required
@@ -128,13 +129,13 @@ const Login = () => {
           >
             Sign In
           </Button>
-          {/* <Grid container>
+          <Grid container>
             <Grid item>
               <Link href="/signup" variant="body2">
                 {"Don't have an account? Sign Up"}
               </Link>
             </Grid>
-          </Grid> */}
+          </Grid>
         </Box>
       </Box>
     </Container>
