@@ -95,3 +95,7 @@ def logout():
     unset_jwt_cookies(response)
     unset_refresh_cookies(response)
     return response
+
+if __name__ == "__main__":
+    # app.run(port=5000, debug=True, use_debugger=False, use_reloader=False)
+    app.run(port=5000, debug=True)
