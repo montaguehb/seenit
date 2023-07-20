@@ -14,9 +14,7 @@ const fetcher = async (uri: string) => {
 const Providers = ({ children }: { children: React.ReactNode }) => {
   return (
     <ErrorProvider>
-      <SwrProvider>
         <AuthProvider>{children}</AuthProvider>
-      </SwrProvider>
     </ErrorProvider>
   );
 };

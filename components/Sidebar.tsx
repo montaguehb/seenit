@@ -1,6 +1,6 @@
 "use client";
 import Communities from "./Communities";
-import { Button } from "@mui/material";
+import { Button, Link } from "@mui/material";
 import { styled, useTheme } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import Drawer from "@mui/material/Drawer";
@@ -88,20 +88,20 @@ const Sidebar = () => {
   return (
     <Box sx={{ flexGrow: 1 }}>
       <CssBaseline />
-        <Toolbar>
-          <IconButton
-            color="inherit"
-            aria-label="open drawer"
-            onClick={handleDrawerOpen}
-            edge="start"
-            sx={{ mr: 2, ...(open && { display: "none" }) }}
-          >
-            <MenuIcon />
-          </IconButton>
-          <Typography variant="h6" noWrap component="div">
-            Seenit
-          </Typography>
-        </Toolbar>
+      <Toolbar>
+        <IconButton
+          color="inherit"
+          aria-label="open drawer"
+          onClick={handleDrawerOpen}
+          edge="start"
+          sx={{ mr: 2, ...(open && { display: "none" }) }}
+        >
+          <MenuIcon />
+        </IconButton>
+        <Link href="/" underline="none">
+          <Typography sx={{ color: "white" }} variant="h6">Seenit</Typography>
+        </Link>
+      </Toolbar>
 
       <Drawer
         sx={{
