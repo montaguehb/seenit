@@ -18,7 +18,6 @@ flask-marshmallow = "*"
 marshmallow-sqlalchemy = "*"
 flask-jwt-extended = {extras = ["asymmetric_crypto"], version = "*"}
 python-dotenv = "*"
-gunicorn = "*"
 psycopg2-binary = "*"
 
 [dev-packages]

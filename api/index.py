@@ -95,5 +95,5 @@ def logout():
     unset_refresh_cookies(response)
     return response
 
-if __name__ == "__main__":
-    app.run(port=5000, debug=True, use_debugger=False, use_reloader=False)
+# if __name__ == "__main__":
+#     app.run(port=5000, debug=True, use_debugger=False, use_reloader=False)
