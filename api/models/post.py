@@ -1,4 +1,4 @@
-from models import db, SerializerMixin, joinedload
+from api.models import db, SerializerMixin, joinedload
 
 
 class Post(db.Model):
@@ -19,6 +19,6 @@ class Post(db.Model):
     community = db.relationship("Community", back_populates="post")
 
 
-from models.user import User
-from models.comment import Comment
-from models.community import Community
+from api.models.user import User
+from api.models.comment import Comment
+from api.models.community import Community

@@ -1,7 +1,7 @@
-from blueprints import abort, make_response, g, request, Resource, Blueprint
-from models import db
-from models.user_post import UserPost
-from schemas.user_post_schema import UserPostSchema
+from api.blueprints import abort, make_response, g, request, Resource, Blueprint
+from api.models import db
+from api.models.user_post import UserPost
+from api.schemas.user_post_schema import UserPostSchema
 from sqlalchemy import func
 
 user_post_bp = Blueprint('usercommunities', __name__, url_prefix='/usercommunities')

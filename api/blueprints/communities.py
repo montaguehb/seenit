@@ -1,10 +1,10 @@
-from blueprints import abort, make_response, g, request, Resource, Blueprint, IntegrityError
+from api.blueprints import abort, make_response, g, request, Resource, Blueprint, IntegrityError
 from flask_jwt_extended import get_jwt_identity, jwt_required
-from models import db
-from models.community import Community
-from models.user_community import UserCommunity
-from schemas.user_community_schema import UserCommunitySchema
-from schemas.community_schema import CommunitySchema
+from api.models import db
+from api.models.community import Community
+from api.models.user_community import UserCommunity
+from api.schemas.user_community_schema import UserCommunitySchema
+from api.schemas.community_schema import CommunitySchema
 from sqlalchemy import func
 
 community_bp = Blueprint("communities", __name__, url_prefix="/communities")

@@ -1,8 +1,8 @@
-from schemas import fields, validate, ma, validates, ValidationError
-from models.post import Post
-from schemas.comment_schema import CommentSchema
-from schemas.community_schema import CommunitySchema
-from schemas.user_schema import UserSchema
+from api.schemas import fields, validate, ma, validates, ValidationError
+from api.models.post import Post
+from api.schemas.comment_schema import CommentSchema
+from api.schemas.community_schema import CommunitySchema
+from api.schemas.user_schema import UserSchema
 
 class PostSchema(ma.SQLAlchemyAutoSchema):
     class Meta:

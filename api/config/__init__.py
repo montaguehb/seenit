@@ -9,7 +9,7 @@ from flask_jwt_extended import JWTManager
 from datetime import timedelta
 import logging
 
-from schemas import ma
+from api.schemas import ma
 
 import os
 
@@ -44,6 +44,6 @@ CORS(app)
 
 bcrypt = Bcrypt(app)
 
-api = Api(app, prefix="/api")
+flask_api = Api(app, prefix="/api")
 
 jwt = JWTManager(app)

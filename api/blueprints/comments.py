@@ -1,8 +1,8 @@
-from blueprints import abort, make_response, g, request, Resource, Blueprint
-from models import db
-from models.comment import Comment
+from api.blueprints import abort, make_response, g, request, Resource, Blueprint
+from api.models import db
+from api.models.comment import Comment
 from sqlalchemy import func
-from schemas.comment_schema import CommentSchema
+from api.schemas.comment_schema import CommentSchema
 
 comments_bp = Blueprint("comments", __name__, url_prefix="/comments")
 comment_schema = CommentSchema()

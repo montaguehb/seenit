@@ -1,4 +1,4 @@
-from models import db, SerializerMixin
+from api.models import db, SerializerMixin
 
 class UserPost(db.Model):
     __tablename__ = "user_post"
@@ -12,5 +12,5 @@ class UserPost(db.Model):
     user = db.relationship("User", back_populates="user_post")
     post = db.relationship("Post")
     
-from models.user import User
-from models.post import Post
+from api.models.user import User
+from api.models.post import Post

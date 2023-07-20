@@ -1,4 +1,4 @@
-from models import db
+from api.models import db
 
 class UserCommunity(db.Model):
     __tablename__ = "user_community"
@@ -11,5 +11,5 @@ class UserCommunity(db.Model):
     user = db.relationship("User", back_populates="user_community")
     community = db.relationship("Community")
 
-from models.user import User
-from models.community import Community
+from api.models.user import User
+from api.models.community import Community

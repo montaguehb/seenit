@@ -1,8 +1,8 @@
 import typing
-from schemas import fields, validate, ma, validates, ValidationError
-from models.user import User
-from schemas.comment_schema import CommentSchema
-from schemas.user_community_schema import UserCommunitySchema
+from api.schemas import fields, validate, ma, validates, ValidationError
+from api.models.user import User
+from api.schemas.comment_schema import CommentSchema
+from api.schemas.user_community_schema import UserCommunitySchema
 import re
 
 
