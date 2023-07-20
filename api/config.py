@@ -56,3 +56,7 @@ bcrypt = Bcrypt(app)
 api = Api(app, prefix="/api")
 
 jwt = JWTManager(app)
+
+@app.route("/api/python")
+def hello_world():
+    return "<p>Hello, World!</p>"
