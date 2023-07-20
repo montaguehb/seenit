@@ -13,7 +13,13 @@ from schemas import ma
 
 import os
 
-app = Flask(__name__)
+app = Flask(
+    __name__,
+    static_url_path='',
+    static_folder='../.next/static',
+    template_folder='../client/build'
+)
+
 
 # logging.basicConfig()
 # logging.getLogger("sqlalchemy.engine").setLevel(logging.INFO)

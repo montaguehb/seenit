@@ -12,7 +12,6 @@ from flask_jwt_extended import (
 )
 from config import app, db, api, jwt
 from models.user import User
-
 from blueprints import IntegrityError
 from blueprints.users import Users
 from blueprints.user_by_id import UserById
