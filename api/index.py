@@ -10,6 +10,7 @@ from flask_jwt_extended import (
     unset_jwt_cookies,
     unset_refresh_cookies
 )
+
 from config import app, db, api, jwt
 from models.user import User
 from blueprints import IntegrityError
@@ -97,5 +98,5 @@ def logout():
     unset_refresh_cookies(response)
     return response
 
-# if __name__ == "__main__":
-#     app.run(port=5000, debug=True, use_debugger=False, use_reloader=False)
+if __name__ == "__main__":
+    app.run(port=5000, debug=True, use_debugger=False, use_reloader=False)
