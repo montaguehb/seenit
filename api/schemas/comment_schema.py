@@ -1,6 +1,6 @@
 import typing
-from schemas import fields, validate, ma, validates, ValidationError
-from models.comment import Comment
+from api.schemas import fields, validate, ma, validates, ValidationError
+from api.models.comment import Comment
 
 
 class CommentSchema(ma.SQLAlchemyAutoSchema):

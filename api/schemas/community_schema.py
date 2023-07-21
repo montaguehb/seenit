@@ -1,5 +1,5 @@
-from schemas import fields, validate, ma, validates, ValidationError
-from models.community import Community
+from api.schemas import fields, validate, ma, validates, ValidationError
+from api.models.community import Community
 
 import re
 

@@ -1,4 +1,4 @@
-from models import db, bcrypt, hybrid_property, validates
+from api.models import db, bcrypt, hybrid_property, validates
 import re
 class User(db.Model):
     __tablename__ = "user"
@@ -45,7 +45,7 @@ class User(db.Model):
     #         raise ValueError('Password has to have at least one special character')
     #     return password
     
-from models.post import Post
-from models.comment import Comment
-from models.user_community import UserCommunity
-from models.user_post import UserPost
+from api.models.post import Post
+from api.models.comment import Comment
+from api.models.user_community import UserCommunity
+from api.models.user_post import UserPost

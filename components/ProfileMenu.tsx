@@ -36,7 +36,7 @@ const ProfileMenu = () => {
   const router = useRouter();
 
   const { trigger, data, isMutating, error } = useSWRMutation(
-    "/api/v1/logout",
+    "/api/logout",
     sendRequest
   );
 

@@ -1,6 +1,23 @@
-from flask import make_response, request
-from flask_restful import Resource
-from flask_jwt_extended import (
+
+
+from api import app, db, flask_api, jwt
+from api import User
+from api import IntegrityError
+from api import Users
+from api import UserById
+from api import Posts
+from api import PostsByCommunityId
+from api import PostById
+from api import UserCommunities
+from api import UserCommunitiesById
+from api import UserPosts
+from api import UserPostById
+from api import Communities
+from api import Comments
+from api import UserSchema
+
+from api import make_response, request
+from api import (
     create_access_token,
     create_refresh_token,
     set_access_cookies,
@@ -10,42 +27,25 @@ from flask_jwt_extended import (
     unset_jwt_cookies,
     unset_refresh_cookies
 )
-from config import app, db, api, jwt
-from models.user import User
-
-from blueprints import IntegrityError
-from blueprints.users import Users
-from blueprints.user_by_id import UserById
-from blueprints.posts import Posts
-from blueprints.posts_by_communities import PostsByCommunityId
-from blueprints.post_by_id import PostById
-from blueprints.user_communities import UserCommunities
-from blueprints.user_communities_by_id import UserCommunitiesById
-from blueprints.user_posts import UserPosts
-from blueprints.user_posts_by_id import UserPostById
-from blueprints.communities import Communities
-from blueprints.comments import Comments
-from schemas.user_schema import UserSchema
 
 user_schema = UserSchema(exclude=("user_post.post", "comment", "post"))
 
-api.add_resource(Users, "/users")
-api.add_resource(UserById, "/users/<int:id>")
-api.add_resource(Posts, "/posts")
-api.add_resource(PostsByCommunityId, "/communities/<int:community_id>/posts")
-api.add_resource(Comments, "/comments")
-api.add_resource(PostById, "/communities/<int:community_id>/posts/<int:post_id>")
-api.add_resource(UserCommunities, "/usercommunities")
-api.add_resource(UserCommunitiesById, "/usercommunities/<int:id>")
-api.add_resource(UserPosts, "/userposts")
-api.add_resource(UserPostById, "/userposts/<int:id>")
-api.add_resource(Communities, "/communities")
-
+flask_api.add_resource(Users, "/users")
+flask_api.add_resource(UserById, "/users/<int:id>")
+flask_api.add_resource(Posts, "/posts")
+flask_api.add_resource(PostsByCommunityId, "/communities/<int:community_id>/posts")
+flask_api.add_resource(Comments, "/comments")
+flask_api.add_resource(PostById, "/communities/<int:community_id>/posts/<int:post_id>")
+flask_api.add_resource(UserCommunities, "/usercommunities")
+flask_api.add_resource(UserCommunitiesById, "/usercommunities/<int:id>")
+flask_api.add_resource(UserPosts, "/userposts")
+flask_api.add_resource(UserPostById, "/userposts/<int:id>")
+flask_api.add_resource(Communities, "/communities")
+    
 @app.route("/api/profile", methods=["GET"])
 def profile():
     if user := db.session.get(User, id):
         return make_response(user.to_dict(), 200)
-
 
 @app.route("/api/signup", methods=["POST"])
 def signup():
@@ -98,4 +98,5 @@ def logout():
     return response
 
 if __name__ == "__main__":
-    app.run(port=5000, debug=True, use_debugger=False, use_reloader=False)
+    # app.run(port=5000, debug=True, use_debugger=False, use_reloader=False)
+    app.run(port=5000, debug=True)

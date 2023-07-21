@@ -1,14 +1,15 @@
 "use client";
 
-import { Typography, Button } from "@mui/material";
+import { Typography, Button, TextField } from "@mui/material";
 import { useContext, useEffect } from "react";
 import { UserContext } from "../AuthProvider";
-import { Form, Formik, Field } from "formik";
+import { useFormik } from "formik";
 import { getCookie } from "@/lib/getters";
 import useSWRMutation from "swr/mutation";
-import { CommentType } from "@/lib/types";
 import { useRouter } from "next/navigation";
-import ErrorSnackbar from "../ErrorSnackbar";
+import * as Yup from "yup";
+import { ErrorContext } from "../providers/ErrorProvider";
+
 const sendRequest = async (
   url: string,
   {
@@ -32,8 +33,7 @@ const sendRequest = async (
   });
   if (resp.ok) {
     return await resp.json();
-  }
-  else {
+  } else {
     const error_message = await resp.json();
     const error = new Error(error_message.error);
     throw error;
@@ -44,46 +44,72 @@ const CommentForm = ({
   parent_comment,
   updateReply,
 }: {
-  parent_comment: {id: number; post_id: number;};
+  parent_comment: { id: number; post_id: number };
   updateReply: any;
 }) => {
+  const commentSchema = Yup.object().shape({
+    body: Yup.string()
+      .min(1, "Comments must be at least 1 character")
+      .max(500, "Comments can not be more than 500 characters")
+      .required("Please enter a comment"),
+  });
   const { user } = useContext(UserContext);
+  const { contextError, updateError} = useContext(ErrorContext);
   const router = useRouter();
-  const { trigger, data, isMutating, error } = useSWRMutation(
-    "/api/v1/comments",
-    sendRequest
-  );
+  const { trigger, data, error } = useSWRMutation("/api/comments", sendRequest);
+
+  const formik = useFormik({
+    initialValues: {
+      body: "",
+    },
+    validationSchema: commentSchema,
+    onSubmit: (values) => {
+      trigger({
+        ...values,
+        user_id: user.id,
+        parent_comment_id: parent_comment.id,
+        post_id: parent_comment.post_id,
+      });
+    },
+  });
 
   useEffect(() => {
     if (data) {
       router.refresh();
       updateReply();
+    } else if (error) {
+      updateError(error.message);
+    } else if (formik.errors && formik.errors.body !== contextError) {
+      updateError(formik.errors.body);
     }
-  }, [data]);
+  }, [
+    data,
+    error,
+    router,
+    updateError,
+    updateReply,
+    formik.errors,
+    contextError
+  ]);
 
   return (
     <div>
-      <Typography variant="h5">comment as {user?.username}</Typography>
-      <Formik
-        initialValues={{
-          body: "",
-        }}
-        onSubmit={(values: { body: string }) =>
-          trigger({
-            ...values,
-            user_id: user.id,
-            parent_comment_id: parent_comment.id,
-            post_id: parent_comment.post_id,
-          })
-        }
-      >
-        <Form>
-          <label htmlFor="body">comment</label>
-          <Field id="body" name="body" placeholder="comment..." />
-          <Button type="submit">Create</Button>
-        </Form>
-      </Formik>
-      {error?<ErrorSnackbar error={error.message}/>:<></>}
+      {user ? (
+        <Typography variant="h5">comment as {user.username}</Typography>
+      ) : null}
+      <form onSubmit={formik.handleSubmit}>
+        <TextField
+          id="body"
+          name="body"
+          label="comment"
+          value={formik.values.body}
+          onChange={formik.handleChange}
+          onBlur={formik.handleBlur}
+          error={formik.touched.body && Boolean(formik.errors.body)}
+          placeholder="comment..."
+        />
+        <Button type="submit">Create</Button>
+      </form>
     </div>
   );
 };

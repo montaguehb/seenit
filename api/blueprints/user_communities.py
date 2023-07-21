@@ -1,7 +1,7 @@
-from blueprints import abort, make_response, g, request, Resource, Blueprint
-from models import db
-from models.user_community import UserCommunity
-from schemas.user_community_schema import UserCommunitySchema
+from api.blueprints import abort, make_response, g, request, Resource, Blueprint
+from api.models import db
+from api.models.user_community import UserCommunity
+from api.schemas.user_community_schema import UserCommunitySchema
 from sqlalchemy import func
 
 user_community_bp = Blueprint('usercommunities', __name__, url_prefix='/usercommunities')

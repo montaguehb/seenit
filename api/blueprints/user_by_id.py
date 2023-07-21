@@ -1,8 +1,8 @@
-from blueprints import abort, make_response, g, request, Resource, Blueprint
+from api.blueprints import abort, make_response, g, request, Resource, Blueprint
 from flask_jwt_extended import jwt_required, get_jwt_identity, unset_jwt_cookies, unset_refresh_cookies
-from models import db
-from schemas.user_schema import UserSchema
-from models.user import User
+from api.models import db
+from api.schemas.user_schema import UserSchema
+from api.models.user import User
 
 user_by_id_bp = Blueprint('users', __name__, url_prefix='/users/<int:id>')
 user_schema = UserSchema()

@@ -1,6 +1,6 @@
-from schemas import fields, validate, ma, validates, ValidationError
-from models.user_community import UserCommunity
-from schemas.community_schema import CommunitySchema
+from api.schemas import fields, validate, ma, validates, ValidationError
+from api.models.user_community import UserCommunity
+from api.schemas.community_schema import CommunitySchema
 class UserCommunitySchema(ma.SQLAlchemyAutoSchema):
     class Meta:
         model = UserCommunity

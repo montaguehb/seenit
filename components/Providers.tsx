@@ -2,6 +2,7 @@ import { SWRConfig } from "swr";
 import AuthProvider from "./AuthProvider";
 import ErrorSnackbar from "./ErrorSnackbar";
 import SwrProvider from "./providers/SwrProvider";
+import ErrorProvider from "./providers/ErrorProvider";
 
 const fetcher = async (uri: string) => {
   const resp = await fetch(uri);
@@ -12,9 +13,9 @@ const fetcher = async (uri: string) => {
 
 const Providers = ({ children }: { children: React.ReactNode }) => {
   return (
-    <SwrProvider>
-      <AuthProvider>{children}</AuthProvider>
-    </SwrProvider>
+    <ErrorProvider>
+        <AuthProvider>{children}</AuthProvider>
+    </ErrorProvider>
   );
 };
 

@@ -1,10 +1,10 @@
-from blueprints import abort, make_response, g, request, Resource, Blueprint
-from models import db, joinedload, aliased
-from config import select
-from models.post import Post
-from models.comment import Comment
-from schemas.post_schema import PostSchema
-from schemas.comment_schema import CommentSchema
+from api.blueprints import abort, make_response, g, request, Resource, Blueprint
+from api.models import db, joinedload, aliased
+from api.config import select
+from api.models.post import Post
+from api.models.comment import Comment
+from api.schemas.post_schema import PostSchema
+from api.schemas.comment_schema import CommentSchema
 
 post_by_id_bp = Blueprint(
     "post_by_id",

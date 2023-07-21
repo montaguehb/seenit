@@ -1,15 +1,25 @@
-"use client"
-import { Alert, Snackbar } from "@mui/material"
-import { useState } from "react"
+"use client";
+import { Alert, Snackbar } from "@mui/material";
+import { useState } from "react";
 
-const ErrorSnackbar = ({error}: {error: any}) => {
-    const [open, setOpen] = useState(true)
-
+const ErrorSnackbar = ({
+  error,
+  open,
+  setOpen,
+}: {
+  error: any;
+  open: boolean;
+  setOpen: any;
+}) => {
   return (
-    <Snackbar open={open} onClose={() => setOpen(false)}>
-        <Alert severity="error">{error}</Alert>
-    </Snackbar>
-  )
-}
+    <>
+      {error ? (
+        <Snackbar open={open} onClose={() => setOpen(false)}>
+          <Alert severity="error">{error}</Alert>
+        </Snackbar>
+      ) : null}
+    </>
+  );
+};
 
-export default ErrorSnackbar
+export default ErrorSnackbar;

@@ -1,6 +1,6 @@
-from schemas import fields, validate, ma, validates, ValidationError
-from models.user_post import UserPost
-from schemas.post_schema import PostSchema
+from api.schemas import fields, validate, ma, validates, ValidationError
+from api.models.user_post import UserPost
+from api.schemas.post_schema import PostSchema
 
 class UserPostSchema(ma.SQLAlchemyAutoSchema):
     class Meta:

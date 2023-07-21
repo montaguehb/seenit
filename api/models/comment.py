@@ -1,4 +1,4 @@
-from models import db, SerializerMixin, aliased
+from api.models import db, SerializerMixin, aliased
 
 
 class Comment(db.Model):
@@ -19,5 +19,5 @@ class Comment(db.Model):
     child_comment = db.relationship("Comment")
 
 
-from models.user import User
-from models.post import Post
+from api.models.user import User
+from api.models.post import Post

@@ -34,7 +34,7 @@ const EmailForm = () => {
   const { user, updateUser } = useContext(UserContext);
   const router = useRouter();
   const { trigger, data, isMutating, error } = useSWRMutation(
-    `/api/v1/users/${user?.id}`,
+    `/api/users/${user?.id}`,
     sendRequest
   );
   useEffect(() => {
@@ -62,7 +62,6 @@ const EmailForm = () => {
         </Formik>
         <Typography variant="body1">Already have an account?</Typography>
         <Button href="/signup">Signup</Button>
-        {error ? <ErrorSnackbar error={error} /> : <></>}
       </div>
     );
   } else {

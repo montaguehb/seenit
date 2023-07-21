@@ -1,10 +1,10 @@
-from blueprints import make_response, Resource, Blueprint, request
-from models import db
+from api.blueprints import make_response, Resource, Blueprint, request
+from api.models import db
 from flask_jwt_extended import jwt_required, get_jwt_identity
-from models.community import Community
-from schemas.community_schema import CommunitySchema
-from schemas.post_schema import PostSchema
-from models.post import Post
+from api.models.community import Community
+from api.schemas.community_schema import CommunitySchema
+from api.schemas.post_schema import PostSchema
+from api.models.post import Post
 post_by_communities_bp = Blueprint(
     "users", __name__, url_prefix="/communities/<int:id>/posts"
 )
