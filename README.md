@@ -12,6 +12,7 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 - Users are able to save, like, and dislike posts
 
 ## Cloning the Project
+
 ```bash
 # Cloning the repo locally
 $ git clone git@github.com:montaguehb/seenit.git
@@ -24,6 +25,7 @@ $ pipenv install && pipenv shell
 
 # Generating the secret key
 $ python -c 'import secrets; print(secrets.token_hex())'
+
 # Creating the dotenv file
 $ touch .env
 $ echo "FLASK_APP=index.py" >> .env
@@ -44,7 +46,6 @@ $ flask run
 # Starting the frontend next server
 $ cd ..
 $ npm run dev
-
 ```
 
 If you would like to use an external debugger pass the following arguments to app.run() at the bottom of the index.py file use_debugger=False, use_reloader=False
@@ -108,7 +109,7 @@ NOTE: Be sure to merge the latest from "upstream" before making a pull request!
 
 MIT License
 
-Copyright (c) 2023 Historia Montague, Ren Blake, Ryan Salvato
+Copyright (c) 2023 Historia Montague
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

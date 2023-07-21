@@ -1,5 +1,3 @@
-
-
 from api import app, db, flask_api, jwt
 from api import User
 from api import IntegrityError

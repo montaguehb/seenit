@@ -71,10 +71,11 @@ const Login = () => {
       updateUser(data.user);
     } else if (error) {
       updateError(error.message);
-    } else if (formik.errors && formik.errors.username !== contextError) {
-      updateError(formik.errors.username);
+    } else if (formik.errors && Object.values(formik.errors).find(error => !!error) !== contextError) {
+      updateError(Object.values(formik.errors).find(error => !!error));
     }
-  }, [data]);
+  }, [data, error, formik.errors]);
+
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
