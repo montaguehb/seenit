@@ -13,6 +13,11 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 ## Cloning the Project
 
+- Users can create text posts, comments replying to posts, and new communities
+
+- Users are able to save, like, and dislike posts
+
+## Cloning the Project
 ```bash
 # Cloning the repo locally
 $ git clone git@github.com:montaguehb/seenit.git

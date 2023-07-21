@@ -65,6 +65,7 @@ const formik = useFormik({
   });
 
   if (data) {
+    debugger
     router.push(`/communities/${params.community_id}/posts/${data.id}`);
   }
   else if (error) {
