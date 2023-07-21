@@ -5,6 +5,12 @@ import { useRouter } from "next/navigation";
 import { useContext, useEffect } from "react";
 import { getCookie } from "@/lib/getters";
 import { UserContext } from "@/components/AuthProvider";
+<<<<<<< HEAD
+import Button from "@mui/material/Button";
+import CssBaseline from "@mui/material/CssBaseline";
+import TextField from "@mui/material/TextField";
+import Box from "@mui/material/Box";
+=======
 import ErrorSnackbar from "@/components/ErrorSnackbar";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
@@ -14,10 +20,12 @@ import Link from "@mui/material/Link";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
+>>>>>>> 2b969094b6a9abe259d7fd859ed57ef5e2d98a17
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 
 import * as Yup from "yup"
+import { ErrorContext } from "@/components/providers/ErrorProvider";
 const sendRequest = async (url: string, { arg }: { arg: { name: string } }) => {
   const resp = await fetch(url, {
     method: "POST",
@@ -43,8 +51,10 @@ const Create = () => {
     sendRequest
   );
   const {user, updateUser} = useContext(UserContext)
-
+  const {contextError, updateError} = useContext(ErrorContext)
   const router = useRouter();
+<<<<<<< HEAD
+=======
   useEffect(() => {
     if (data) {
       router.push(`/communities/${data.community_id}/posts`);
@@ -52,6 +62,7 @@ const Create = () => {
     }
 
   }, [data]);
+>>>>>>> 2b969094b6a9abe259d7fd859ed57ef5e2d98a17
 
 
   const communitySchema = Yup.object().shape({
@@ -75,6 +86,18 @@ const Create = () => {
     },
   });
 
+  useEffect(() => {
+    if (data) {
+      router.push(`/communities/${data.community_id}/posts`);
+      updateUser({...user, user_community: [...user.user_community, {community: {...data.community}}]})
+    }else if (error) {
+      updateError(error.message);
+    } else if (formik.errors && formik.errors.name !== contextError) {
+      updateError(formik.errors.name);
+    }
+
+  }, [data, formik.errors, error]);
+  
   return (
     <Container component="main" maxWidth="xs">
     <CssBaseline />

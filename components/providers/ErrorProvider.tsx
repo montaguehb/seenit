@@ -16,7 +16,7 @@ const ErrorProvider = ({ children }: { children: React.ReactNode }) => {
   const [open, setOpen] = useState(true);
   const updateError = (error: any) => {
     setError(error);
-    setOpen(!open);
+    setOpen(true);
   };
 
   return (

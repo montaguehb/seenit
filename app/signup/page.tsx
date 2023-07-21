@@ -16,6 +16,7 @@ import Box from "@mui/material/Box";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
+import { ErrorContext } from "@/components/providers/ErrorProvider";
 
 const sendRequest = async (url: string, { arg }: { arg: AuthInterface }) => {
   const resp = await fetch(url, {
@@ -33,8 +34,8 @@ const sendRequest = async (url: string, { arg }: { arg: AuthInterface }) => {
     throw error;
   }
 };
-
 const Signup = () => {
+  const { contextError, updateError } = useContext(ErrorContext);
   const signUpSchema = Yup.object().shape({
     username: Yup.string()
       .min(2, "Username cannot be less than 2 characters")
@@ -81,8 +82,15 @@ const Signup = () => {
     if (data) {
       router.push("/");
       updateUser(data.user);
+    } else if (error) {
+      updateError(error.message);
+    } else if (
+      formik.errors &&
+      Object.values(formik.errors).find((error) => !!error) !== contextError
+    ) {
+      updateError(Object.values(formik.errors).find((error) => !!error));
     }
-  }, [data]);
+  }, [data, error, formik.errors]);
 
   return (
     <Container component="main" maxWidth="xs">

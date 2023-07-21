@@ -18,7 +18,7 @@ const sendRequest = async (
     arg: {
       body: string;
       user_id: number;
-      parent_comment_id: number;
+      parent_comment_id: number | null;
       post_id: number;
     };
   }
@@ -67,7 +67,7 @@ const CommentForm = ({
       trigger({
         ...values,
         user_id: user.id,
-        parent_comment_id: parent_comment.id,
+        parent_comment_id: parent_comment.id === 0?null: parent_comment.id,
         post_id: parent_comment.post_id,
       });
     },

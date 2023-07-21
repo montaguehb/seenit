@@ -1,5 +1,8 @@
+<<<<<<< HEAD
+=======
 
 
+>>>>>>> 2b969094b6a9abe259d7fd859ed57ef5e2d98a17
 from api import app, db, flask_api, jwt
 from api import User
 from api import IntegrityError
