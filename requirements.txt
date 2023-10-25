@@ -38,5 +38,5 @@ sqlalchemy==2.0.19; python_version >= "3.7"
 sqlalchemy-serializer==1.4.1
 tomli==2.0.1; python_version < "3.11"
 typing-extensions==4.7.1; python_version < "3.9"
-werkzeug==2.3.6; python_version >= "3.8"
+werkzeug==3.0.1; python_version >= "3.8"
 zipp==3.16.2; python_version >= "3.8"
